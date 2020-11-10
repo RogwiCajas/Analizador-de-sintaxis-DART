@@ -2,17 +2,24 @@ import ply.lex as lex
 ##Palabras reservadas de dart
 reserved = {
     "if":"IF",
+    "else": "ELSE",
+    "else if":"ELSEIF",
     "for":"FOR",
     "while":"WHILE",
-    "bool":"BOOL"
+    "bool":"BOOL",
+    "int":"INT",
+    "double":"DOUBLE",
+    "var":"VAR",
+    "void":"VOID",
+    "return": "RETURN"
 }
 ## tokens sencillos
 tokens = [
-    
+    "END",
     "BOOLEAN",
     "VARIABLE",
     "IGUAL",
-    "DIGUAL",
+    "DIGUAL", 
     "DIF", 
     "PROD",
     "MOD",
@@ -22,6 +29,9 @@ tokens = [
     "MENORIG",
     "ENTERO",
     "MAS",
+    "INCREMENTO",
+    "MENOS",
+    "DECREMENTO",
     "DIV",
     "RESTA",
     "POTENCIA",
@@ -39,6 +49,9 @@ t_DIGUAL=r"=="
 t_DIF= r"!="
 t_PROD = r"\*"
 t_MAS = r"\+"
+t_INCREMENTO =r"\+\+"
+t_MENOS = r"-"
+t_DECREMENTO = r"--"
 t_MOD = r"%"
 t_MAYOR = r">"
 t_MENOR = r"<"
@@ -54,6 +67,7 @@ t_LIZQ=r"\{"
 t_LDER=r"\}"
 t_PIZQ=r"\("
 t_PDER=r"\)"
+t_END=r";"
 
 
 def t_BOOLEAN(t):
@@ -67,7 +81,10 @@ def t_VARIABLE(t):
 def t_newline(t):
     r"\n+"
     t.lexer.lineno += len(t.value)
+# iGNORA CARACTERES
 t_ignore = ' \t'
+t_ignore_CM = r'//.*'
+t_ignore_CM2 = r'/\*.*\*/'
 def t_error(t):
     print("No es reconocido '%s'" % t.value[0])
     t.lexer.skip(1)

@@ -1,9 +1,9 @@
 import ply.lex as lex
+
 ##Palabras reservadas de dart
-reserved = {
+reserved = { 
     "if":"IF",
     "else": "ELSE",
-    "else if":"ELSEIF",
     "for":"FOR",
     "while":"WHILE",
     "bool":"BOOL",
@@ -11,10 +11,16 @@ reserved = {
     "double":"DOUBLE",
     "var":"VAR",
     "void":"VOID",
-    "return": "RETURN"
+    "return": "RETURN",
+    "in":"IN",
+    "continue":"CONTINUE",
+    "break": "BREAK"
 }
-## tokens sencillos
+## tokens
+
 tokens = [
+    
+    "STRING",
     "END",
     "BOOLEAN",
     "VARIABLE",
@@ -34,16 +40,24 @@ tokens = [
     "DECREMENTO",
     "DIV",
     "RESTA",
-    "POTENCIA",
     "LIZQ",
     "LDER",
     "CIZQ",
     "CDER",
     "PIZQ",
-    "PDER"
+    "PDER",
+    "AND",
+    "OR",
+    "NEGACION",
+    "COMA",
+    "ELSEIF",
+    "POINT"
+    
 ] + list(reserved.values())
 
 ##especificacion de tokens
+
+t_STRING=r"(\".*\")|(\'.*\')"
 t_IGUAL= r"="
 t_DIGUAL=r"=="
 t_DIF= r"!="
@@ -59,7 +73,6 @@ t_MAYORIG = r">="
 t_MENORIG = r">="
 t_ENTERO = r"\d+"
 t_DIV=r"/"
-t_POTENCIA=r"\*\*"
 t_RESTA=r"-"
 t_CIZQ=r"\["
 t_CDER=r"\]"
@@ -68,8 +81,16 @@ t_LDER=r"\}"
 t_PIZQ=r"\("
 t_PDER=r"\)"
 t_END=r";"
+t_AND=r"&&"
+t_OR=r"\|\|"
+t_NEGACION=r"!"
+t_COMA=r","
+t_POINT=r"\."
 
-
+def t_ELSEIF(t):
+    r"else\sif"
+    t.type = reserved.get(t.value, 'ELSEIF')
+    return t
 def t_BOOLEAN(t):
     r"true|false"
     t.type = reserved.get(t.value, 'BOOLEAN')
@@ -85,9 +106,11 @@ def t_newline(t):
 t_ignore = ' \t'
 t_ignore_CM = r'//.*'
 t_ignore_CM2 = r'/\*.*\*/'
+
 def t_error(t):
     print("No es reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
+
 lexer = lex.lex()
 def analizar(data):
     lexer.input(data)
@@ -98,8 +121,14 @@ def analizar(data):
             break  # No more input
         print(tok)
 print("Mi primer analizador léxico :)")
-while True:
-    data = input(">> ")
-    analizar(data)
-    if len(data)==0:
+#while True:
+#   data = input(">> ")
+#    analizar(data)
+#    if len(data)==0:
+#        break
+archivo = open('codigo.txt')
+for linea in archivo:
+    #print(">>"+linea)
+    analizar(linea)
+    if len(linea)==0:
         break

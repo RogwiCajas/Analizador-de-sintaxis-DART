@@ -1,10 +1,11 @@
 import ply.lex as lex
 
 ##Palabras reservadas de dart
+
 reserved = { 
     "if":"IF",
-    "else": "ELSE",
-    "for":"FOR",
+    "else": "ELSE" ,
+    "for":"FOR",#parte IsaacSolis
     "while":"WHILE",
     "bool":"BOOL",
     "int":"INT",
@@ -12,13 +13,14 @@ reserved = {
     "var":"VAR",
     "void":"VOID",
     "return": "RETURN",
-    "in":"IN",
+    "in":"IN", #parte IsaacSolis
     "continue":"CONTINUE",
     "break": "BREAK"
 }
 ## tokens
 
-tokens = [
+tokens = [  #parte RogwiCajas
+
     
     "STRING",
     "END",
@@ -54,10 +56,11 @@ tokens = [
     "POINT"
     
 ] + list(reserved.values())
+#fin de parte de RogwiCajas
 
 ##especificacion de tokens
 
-t_STRING=r"(\".*\")|(\'.*\')"
+t_STRING=r"(\".*\")|(\'.*\')" #parte IsaacSolis
 t_IGUAL= r"="
 t_DIGUAL=r"=="
 t_DIF= r"!="
@@ -73,8 +76,8 @@ t_MAYORIG = r">="
 t_MENORIG = r">="
 t_ENTERO = r"\d+"
 t_DIV=r"/"
-t_RESTA=r"-"
-t_CIZQ=r"\["
+t_RESTA=r"-"  #fin de parte de ISaacSOlis
+t_CIZQ=r"\[" #parte RogwiCajas
 t_CDER=r"\]"
 t_LIZQ=r"\{"
 t_LDER=r"\}"
@@ -120,13 +123,18 @@ def analizar(data):
         if not tok:
             break  # No more input
         print(tok)
-print("Mi primer analizador léxico :)")
+print("Proyecto Analizador léxico :)")
+
 #while True:
-#   data = input(">> ")
+#    data = input(">> ")
 #    analizar(data)
 #    if len(data)==0:
 #        break
-archivo = open('codigo.txt')
+
+#fin de parte de Rogwi Cajas
+
+#parte IsaacSolis
+archivo = open('../codigoCajas.txt')
 for linea in archivo:
     #print(">>"+linea)
     analizar(linea)

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND BOOL BOOLEAN BREAK CDER CIZQ COMA CONTINUE DECREMENTO DIF DIGUAL DIV DOUBLE ELSE ELSEIF END ENTERO FOR IF IGUAL IN INCREMENTO INT LDER LIZQ MAS MAYOR MAYORIG MENOR MENORIG MOD NEGACION OR PDER PIZQ POINT PRINT PROD RESTA RETURN STRING VAR VARIABLE VOID WHILEalgoritmo : imprimir\n                    | asignacion\n                    | expresion\n                    | comparacion\n                    | sentenciaIf\n    sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER asignacion : VARIABLE IGUAL expresionimprimir : PRINT PIZQ expresion PDERexpresion : valor\n    expresion : valor operadorMat expresioncomparacion : expresion operadorComp expresionoperadorMat : MAS \n                    | RESTA\n                    | PROD\n                    | DIV\n    operadorComp : MAYOR \n                    | MENOR\n                    | MAYORIG\n                    | MENORIG\n                    | DIGUAL\n                    | DIF\n    valor : ENTERO\n             | VARIABLE\n    '
+_lr_signature = 'ADD AND BOOL BOOLEAN BREAK CDER CIZQ COMA CONTINUE DECREMENTO DIF DIGUAL DIV DOUBLE ELSE ELSEIF END ENTERO FIRST FOR IF IGUAL IN INCREMENTO INPUT INT LAST LDER LEN LIZQ MAS MAYOR MAYORIG MENOR MENORIG MOD NEGACION OR PDER PIZQ POINT PRINT PROD REMOVE RESTA RETURN SLICE STRING VAR VARIABLE VOID WHILEalgoritmo : imprimir END\n                    | asignacion END\n                    | expresion END\n                    | comparacion\n                    | sentenciaIf END\n    sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo  LDERasignacion : tipo VARIABLE IGUAL expresionimprimir : PRINT PIZQ expresion PDERexpresion : valor\n    expresion : valor operadorMat expresioncomparacion : expresion operadorComp expresionoperadorMat : MAS \n                    | RESTA\n                    | PROD\n                    | DIV\n    operadorComp : MAYOR \n                    | MENOR\n                    | MAYORIG\n                    | MENORIG\n                    | DIGUAL\n                    | DIF\n    tipo : VAR\n            | INT\n            | BOOL\n            | DOUBLE\n    valor : ENTERO\n             | VARIABLE\n    '
     
-_lr_action_items = {'PRINT':([0,36,],[7,7,]),'VARIABLE':([0,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,36,],[8,28,-16,-17,-18,-19,-20,-21,28,28,28,-12,-13,-14,-15,28,8,]),'IF':([0,36,],[10,10,]),'ENTERO':([0,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,36,],[11,11,-16,-17,-18,-19,-20,-21,11,11,11,-12,-13,-14,-15,11,11,]),'$end':([1,2,3,4,5,6,8,9,11,27,28,30,31,34,38,],[0,-1,-2,-3,-4,-5,-23,-9,-22,-11,-23,-7,-10,-8,-6,]),'LDER':([2,3,4,5,6,8,9,11,27,28,30,31,34,37,38,],[-1,-2,-3,-4,-5,-23,-9,-22,-11,-23,-7,-10,-8,38,-6,]),'MAYOR':([4,8,9,11,28,31,33,],[13,-23,-9,-22,-23,-10,13,]),'MENOR':([4,8,9,11,28,31,33,],[14,-23,-9,-22,-23,-10,14,]),'MAYORIG':([4,8,9,11,28,31,33,],[15,-23,-9,-22,-23,-10,15,]),'MENORIG':([4,8,9,11,28,31,33,],[16,-23,-9,-22,-23,-10,16,]),'DIGUAL':([4,8,9,11,28,31,33,],[17,-23,-9,-22,-23,-10,17,]),'DIF':([4,8,9,11,28,31,33,],[18,-23,-9,-22,-23,-10,18,]),'PIZQ':([7,10,],[19,26,]),'IGUAL':([8,],[20,]),'MAS':([8,9,11,28,],[-23,22,-22,-23,]),'RESTA':([8,9,11,28,],[-23,23,-22,-23,]),'PROD':([8,9,11,28,],[-23,24,-22,-23,]),'DIV':([8,9,11,28,],[-23,25,-22,-23,]),'PDER':([9,11,27,28,29,31,32,],[-9,-22,-11,-23,34,-10,35,]),'LIZQ':([35,],[36,]),}
+_lr_action_items = {'PRINT':([0,45,],[7,7,]),'IF':([0,45,],[11,11,]),'VAR':([0,45,],[12,12,]),'INT':([0,45,],[13,13,]),'BOOL':([0,45,],[14,14,]),'DOUBLE':([0,45,],[15,15,]),'ENTERO':([0,20,21,22,23,24,25,26,28,30,31,32,33,34,35,38,45,],[16,16,-16,-17,-18,-19,-20,-21,16,16,-12,-13,-14,-15,16,16,16,]),'VARIABLE':([0,8,12,13,14,15,20,21,22,23,24,25,26,28,30,31,32,33,34,35,38,45,],[9,29,-22,-23,-24,-25,9,-16,-17,-18,-19,-20,-21,9,9,-12,-13,-14,-15,9,9,9,]),'$end':([1,5,9,10,16,17,18,19,27,36,39,],[0,-4,-27,-9,-26,-1,-2,-3,-5,-11,-10,]),'END':([2,3,4,6,9,10,16,39,42,43,47,],[17,18,19,27,-27,-9,-26,-10,-8,-7,-6,]),'MAYOR':([4,9,10,16,39,41,],[21,-27,-9,-26,-10,21,]),'MENOR':([4,9,10,16,39,41,],[22,-27,-9,-26,-10,22,]),'MAYORIG':([4,9,10,16,39,41,],[23,-27,-9,-26,-10,23,]),'MENORIG':([4,9,10,16,39,41,],[24,-27,-9,-26,-10,24,]),'DIGUAL':([4,9,10,16,39,41,],[25,-27,-9,-26,-10,25,]),'DIF':([4,9,10,16,39,41,],[26,-27,-9,-26,-10,26,]),'LDER':([5,9,10,16,17,18,19,27,36,39,46,],[-4,-27,-9,-26,-1,-2,-3,-5,-11,-10,47,]),'PIZQ':([7,11,],[28,35,]),'MAS':([9,10,16,],[-27,31,-26,]),'RESTA':([9,10,16,],[-27,32,-26,]),'PROD':([9,10,16,],[-27,33,-26,]),'DIV':([9,10,16,],[-27,34,-26,]),'PDER':([9,10,16,36,37,39,40,],[-27,-9,-26,-11,42,-10,44,]),'IGUAL':([29,],[38,]),'LIZQ':([44,],[45,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'algoritmo':([0,36,],[1,37,]),'imprimir':([0,36,],[2,2,]),'asignacion':([0,36,],[3,3,]),'expresion':([0,12,19,20,21,26,36,],[4,27,29,30,31,33,4,]),'comparacion':([0,26,36,],[5,32,5,]),'sentenciaIf':([0,36,],[6,6,]),'valor':([0,12,19,20,21,26,36,],[9,9,9,9,9,9,9,]),'operadorComp':([4,33,],[12,12,]),'operadorMat':([9,],[21,]),}
+_lr_goto_items = {'algoritmo':([0,45,],[1,46,]),'imprimir':([0,45,],[2,2,]),'asignacion':([0,45,],[3,3,]),'expresion':([0,20,28,30,35,38,45,],[4,36,37,39,41,43,4,]),'comparacion':([0,35,45,],[5,40,5,]),'sentenciaIf':([0,45,],[6,6,]),'tipo':([0,45,],[8,8,]),'valor':([0,20,28,30,35,38,45,],[10,10,10,10,10,10,10,]),'operadorComp':([4,41,],[20,20,]),'operadorMat':([10,],[30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,27 +27,31 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> algoritmo","S'",1,None,None,None),
-  ('algoritmo -> imprimir','algoritmo',1,'p_algoritmo','sintaxis_Dart.py',11),
-  ('algoritmo -> asignacion','algoritmo',1,'p_algoritmo','sintaxis_Dart.py',12),
-  ('algoritmo -> expresion','algoritmo',1,'p_algoritmo','sintaxis_Dart.py',13),
+  ('algoritmo -> imprimir END','algoritmo',2,'p_algoritmo','sintaxis_Dart.py',11),
+  ('algoritmo -> asignacion END','algoritmo',2,'p_algoritmo','sintaxis_Dart.py',12),
+  ('algoritmo -> expresion END','algoritmo',2,'p_algoritmo','sintaxis_Dart.py',13),
   ('algoritmo -> comparacion','algoritmo',1,'p_algoritmo','sintaxis_Dart.py',14),
-  ('algoritmo -> sentenciaIf','algoritmo',1,'p_algoritmo','sintaxis_Dart.py',15),
+  ('algoritmo -> sentenciaIf END','algoritmo',2,'p_algoritmo','sintaxis_Dart.py',15),
   ('sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER','sentenciaIf',7,'p_sentenciaIf','sintaxis_Dart.py',19),
-  ('asignacion -> VARIABLE IGUAL expresion','asignacion',3,'p_asignacion','sintaxis_Dart.py',22),
+  ('asignacion -> tipo VARIABLE IGUAL expresion','asignacion',4,'p_asignacion','sintaxis_Dart.py',22),
   ('imprimir -> PRINT PIZQ expresion PDER','imprimir',4,'p_imprimir','sintaxis_Dart.py',25),
   ('expresion -> valor','expresion',1,'p_expresion','sintaxis_Dart.py',28),
   ('expresion -> valor operadorMat expresion','expresion',3,'p_expresion_aritmetica','sintaxis_Dart.py',31),
-  ('comparacion -> expresion operadorComp expresion','comparacion',3,'p_comparacion','sintaxis_Dart.py',33),
-  ('operadorMat -> MAS','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',41),
-  ('operadorMat -> RESTA','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',42),
-  ('operadorMat -> PROD','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',43),
-  ('operadorMat -> DIV','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',44),
-  ('operadorComp -> MAYOR','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',48),
-  ('operadorComp -> MENOR','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',49),
-  ('operadorComp -> MAYORIG','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',50),
-  ('operadorComp -> MENORIG','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',51),
-  ('operadorComp -> DIGUAL','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',52),
-  ('operadorComp -> DIF','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',53),
+  ('comparacion -> expresion operadorComp expresion','comparacion',3,'p_comparacion','sintaxis_Dart.py',34),
+  ('operadorMat -> MAS','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',37),
+  ('operadorMat -> RESTA','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',38),
+  ('operadorMat -> PROD','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',39),
+  ('operadorMat -> DIV','operadorMat',1,'p_operadorMat','sintaxis_Dart.py',40),
+  ('operadorComp -> MAYOR','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',43),
+  ('operadorComp -> MENOR','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',44),
+  ('operadorComp -> MAYORIG','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',45),
+  ('operadorComp -> MENORIG','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',46),
+  ('operadorComp -> DIGUAL','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',47),
+  ('operadorComp -> DIF','operadorComp',1,'p_operadorComp','sintaxis_Dart.py',48),
+  ('tipo -> VAR','tipo',1,'p_tipo','sintaxis_Dart.py',51),
+  ('tipo -> INT','tipo',1,'p_tipo','sintaxis_Dart.py',52),
+  ('tipo -> BOOL','tipo',1,'p_tipo','sintaxis_Dart.py',53),
+  ('tipo -> DOUBLE','tipo',1,'p_tipo','sintaxis_Dart.py',54),
   ('valor -> ENTERO','valor',1,'p_valor','sintaxis_Dart.py',57),
   ('valor -> VARIABLE','valor',1,'p_valor','sintaxis_Dart.py',58),
 ]

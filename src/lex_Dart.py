@@ -1,5 +1,6 @@
 import ply.lex as lex
 
+
 ##Palabras reservadas de dart
 
 reserved = { 
@@ -10,18 +11,26 @@ reserved = {
     "bool":"BOOL",
     "int":"INT",
     "double":"DOUBLE",
-    "var":"VAR",
+    "var":"VAR", #dynamic
     "void":"VOID",
     "return": "RETURN",
     "in":"IN", #parte IsaacSolis
     "continue":"CONTINUE",
-    "break": "BREAK"
+    "break": "BREAK",
+    "print": "PRINT", #funciones
+    "stdin.readLineSync" : "INPUT",
+    "add" : "ADD",
+    "length" :"LEN",
+    "remove" :"REMOVE",
+    "first"  :"FIRST",
+    "last"  :"LAST",
+    "sublist" :"SLICE" # var colors = ["red", "green", "blue", "orange", "pink"];
+                        #print(colors.sublist(1, 3)); // [green, blue]
+
 }
 ## tokens
 
 tokens = [  #parte RogwiCajas
-
-    
     "STRING",
     "END",
     "BOOLEAN",
@@ -38,7 +47,6 @@ tokens = [  #parte RogwiCajas
     "ENTERO",
     "MAS",
     "INCREMENTO",
-    "MENOS",
     "DECREMENTO",
     "DIV",
     "RESTA",
@@ -60,20 +68,20 @@ tokens = [  #parte RogwiCajas
 
 ##especificacion de tokens
 
-t_STRING=r"(\".*\")|(\'.*\')" #parte IsaacSolis
+t_STRING=r"(\"[a-zA-Z0-9\s]*\")|(\'[a-zA-Z0-9\s]*\')" #parte IsaacSolis
 t_IGUAL= r"="
 t_DIGUAL=r"=="
 t_DIF= r"!="
 t_PROD = r"\*"
 t_MAS = r"\+"
 t_INCREMENTO =r"\+\+"
-t_MENOS = r"-"
+
 t_DECREMENTO = r"--"
 t_MOD = r"%"
 t_MAYOR = r">"
 t_MENOR = r"<"
 t_MAYORIG = r">="
-t_MENORIG = r">="
+t_MENORIG = r"<="
 t_ENTERO = r"\d+"
 t_DIV=r"/"
 t_RESTA=r"-"  #fin de parte de ISaacSOlis
@@ -115,28 +123,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex()
-def analizar(data):
-    lexer.input(data)
-    # Tokenize
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break  # No more input
-        print(tok)
-print("Proyecto Analizador léxico :)")
 
-#while True:
-#    data = input(">> ")
-#    analizar(data)
-#    if len(data)==0:
-#        break
+#comentado va a qui
 
-#fin de parte de Rogwi Cajas
 
-#parte IsaacSolis
-archivo = open('../codigoCajas.txt')
-for linea in archivo:
-    #print(">>"+linea)
-    analizar(linea)
-    if len(linea)==0:
-        break

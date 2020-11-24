@@ -1,0 +1,12 @@
+Rogwi Cajas;
+if, else if, else
+while, do while
+for, for..in
+asignacion de variables,
+comparaciones,
+imprimir,
+indexacion de listas,
+Isaac solis;
+Datos estructurados,
+input,
+metodos para datos estructurados

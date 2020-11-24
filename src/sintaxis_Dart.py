@@ -5,7 +5,11 @@ import ply.yacc as yacc
  # Get the token map from the lexer.  This is required.
 from lex_Dart import tokens
 
+def p_codigo(p): #Rogwi Cajas
+    '''codigo : algoritmo
+                | algoritmo codigo
 
+    '''
 
 def p_algoritmo(p): #regla padre, necesaria para llegar a todas 
     '''algoritmo : imprimir
@@ -23,7 +27,7 @@ def p_funciones(p):
                 | VOID VARIABLE PIZQ parametros PDER LIZQ algoritmo   LDER
     '''
 
-def p_asignacion(p):
+def p_asignacion(p): #Rogwi Cajas
     '''asignacion : tipo VARIABLE IGUAL expresiones END
                     | VARIABLE IGUAL expresiones END
     '''
@@ -32,8 +36,8 @@ def p_parametros(p):
     '''parametros : tipo VARIABLE
                   | tipo VARIABLE COMA  parametros
     '''
-##posibles asignaciones
-def p_expresiones(p): #posible error, poner String
+##posibles asignaciones #Rogwi Cajas e isaac solis
+def p_expresiones(p): #p, poner String
     '''expresiones : expresion 
                     | comparacion 
                     | BOOLEAN 
@@ -52,7 +56,7 @@ def p_strings(p):
     '''string : STRING
     '''
 
-def p_operacion_strings(p):
+def p_operacion_strings(p): #Rogwi Cajas
     '''opstring : string 
                 | VARIABLE
                 | string MAS opstring
@@ -74,7 +78,7 @@ def p_lista(p):
     '''
 
 def p_first(p):
-    '''first : VARIABLE POINT FIRST PIZQ
+    '''first : VARIABLE POINT FIRST PIZQ PDER
     '''
 
 def p_last(p):
@@ -109,7 +113,7 @@ def p_comparacion(p):
     'comparacion : expresion operadorComp expresion'
 
 
-def p_operadorMat(p):
+def p_operadorMat(p): #Rogwi Cajas
     '''operadorMat : MAS 
                     | RESTA
                     | PROD
@@ -117,7 +121,7 @@ def p_operadorMat(p):
                     | MOD
     '''
 
-def p_operadorComp(p):
+def p_operadorComp(p): #Rogwi Cajas
     '''operadorComp : MAYOR 
                     | MENOR
                     | MAYORIG
@@ -140,9 +144,9 @@ def p_valor(p):
              | VARIABLE
     '''
 
-##### estructura if
+##### estructura if Rogwi Cajas
 def p_sentenciaIf(p):
-    'sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END'
+    'sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf'
 
 
 def p_sentenciaelseif(p):
@@ -151,10 +155,10 @@ def p_sentenciaelseif(p):
                     | ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
                     | empty
     '''
-##### estructura for, for in
+##### estructura for, for in Rogwi Cajas
 
 def p_setenciaFor(p):
-    '''sentenciaFOR : FOR PIZQ parametrosF PDER LIZQ algoritmo LDER END
+    '''sentenciaFOR : FOR PIZQ parametrosF PDER LIZQ algoritmo LDER
     '''
 
 def p_contenidoFor(p):
@@ -170,10 +174,10 @@ def p_increDecre(p):
     ''' increDecre : INCREMENTO
                     | DECREMENTO
     '''
-##### estructura while, while..do
+##### estructura while, while..do Rogwi Cajas
 
 def p_sentenciaWhile(p):
-    '''sentenciaWhile : WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    '''sentenciaWhile : WHILE PIZQ comparacion PDER LIZQ algoritmo LDER
     '''
 
 def p_sentenciaWhile_do(p):
@@ -195,7 +199,7 @@ def p_error(p):
 
 # Build the parser
 parser = yacc.yacc()
-
+'''
 while True:
     try:
         s = input('calc > ')
@@ -205,10 +209,10 @@ while True:
     result = parser.parse(s)
     print(result)
 '''
-f=open("algoritmo.txt")
+
+f=open("codigoCajas.txt")
 s = f.read()
 print(s)
 result = parser.parse(s)
 print(result)
 f.close()    
-'''

@@ -12,6 +12,7 @@ reserved = {
     "bool":"BOOL",
     "int":"INT",
     "double":"DOUBLE",
+    "String": "STR",
     "var":"VAR", #dynamic
     "void":"VOID",
     "return": "RETURN",

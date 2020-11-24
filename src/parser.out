@@ -1,1749 +1,2940 @@
-Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ADD
     AND
-    BREAK
-    COMA
-    CONTINUE
-    FIRST
-    INPUT
-    LAST
-    LEN
-    NEGACION
     OR
-    POINT
-    REMOVE
-    RETURN
+    NEGACION
+    CONTINUE
+    BREAK
     SLICE
 
 Grammar
 
-Rule 0     S' -> algoritmo
-Rule 1     algoritmo -> imprimir
-Rule 2     algoritmo -> asignacion
-Rule 3     algoritmo -> expresion
-Rule 4     algoritmo -> comparacion
-Rule 5     algoritmo -> sentenciaIf
-Rule 6     algoritmo -> sentenciaFOR
-Rule 7     algoritmo -> sentenciaWhile
-Rule 8     algoritmo -> empty
-Rule 9     asignacion -> tipo VARIABLE IGUAL expresiones END
-Rule 10    expresiones -> expresion
-Rule 11    expresiones -> comparacion
-Rule 12    expresiones -> BOOLEAN
-Rule 13    expresiones -> opstring
-Rule 14    expresiones -> indexacion
-Rule 15    string -> STRING
-Rule 16    opstring -> string
-Rule 17    opstring -> VARIABLE
-Rule 18    opstring -> string MAS opstring
-Rule 19    imprimir -> PRINT PIZQ expresiones PDER END
-Rule 20    expresion -> valor
-Rule 21    expresion -> valor operadorMat expresion
-Rule 22    comparacion -> expresion operadorComp expresion
-Rule 23    operadorMat -> MAS
-Rule 24    operadorMat -> RESTA
-Rule 25    operadorMat -> PROD
-Rule 26    operadorMat -> DIV
-Rule 27    operadorMat -> MOD
-Rule 28    operadorComp -> MAYOR
-Rule 29    operadorComp -> MENOR
-Rule 30    operadorComp -> MAYORIG
-Rule 31    operadorComp -> MENORIG
-Rule 32    operadorComp -> DIGUAL
-Rule 33    operadorComp -> DIF
-Rule 34    tipo -> VAR
-Rule 35    tipo -> INT
-Rule 36    tipo -> BOOL
-Rule 37    tipo -> DOUBLE
-Rule 38    tipo -> empty
-Rule 39    tipo -> VOID
-Rule 40    valor -> ENTERO
-Rule 41    valor -> VARIABLE
-Rule 42    sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-Rule 43    varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
-Rule 44    varianteIf -> ELSE LIZQ algoritmo LDER
-Rule 45    varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
-Rule 46    varianteIf -> empty
-Rule 47    sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-Rule 48    parametros -> inicializacionFor END comparacion END VARIABLE increDecre
-Rule 49    parametros -> VARIABLE IN VARIABLE
-Rule 50    inicializacionFor -> VARIABLE IGUAL ENTERO
-Rule 51    inicializacionFor -> INT VARIABLE IGUAL ENTERO
-Rule 52    inicializacionFor -> VAR VARIABLE IGUAL ENTERO
-Rule 53    increDecre -> INCREMENTO
-Rule 54    increDecre -> DECREMENTO
-Rule 55    sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-Rule 56    sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-Rule 57    indexacion -> VARIABLE CIZQ valor CDER
-Rule 58    empty -> <empty>
+Rule 0     S' -> funciones
+Rule 1     funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
+Rule 2     algoritmo -> imprimir
+Rule 3     algoritmo -> asignacion
+Rule 4     algoritmo -> expresion
+Rule 5     algoritmo -> comparacion
+Rule 6     algoritmo -> sentenciaIf
+Rule 7     algoritmo -> sentenciaFOR
+Rule 8     algoritmo -> sentenciaWhile
+Rule 9     algoritmo -> empty
+Rule 10    algoritmo -> input
+Rule 11    asignacion -> tipo VARIABLE IGUAL expresiones END
+Rule 12    parametros -> tipo VARIABLE
+Rule 13    parametros -> tipo VARIABLE COMA parametros
+Rule 14    expresiones -> expresion
+Rule 15    expresiones -> comparacion
+Rule 16    expresiones -> BOOLEAN
+Rule 17    expresiones -> opstring
+Rule 18    expresiones -> indexacion
+Rule 19    string -> STRING
+Rule 20    opstring -> string
+Rule 21    opstring -> VARIABLE
+Rule 22    opstring -> string MAS opstring
+Rule 23    imprimir -> PRINT PIZQ expresiones PDER END
+Rule 24    input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END
+Rule 25    expresion -> valor
+Rule 26    expresion -> lista
+Rule 27    expresion -> conjuntos
+Rule 28    expresion -> first
+Rule 29    expresion -> last
+Rule 30    expresion -> length
+Rule 31    expresion -> remove
+Rule 32    expresion -> add
+Rule 33    lista -> CIZQ elementos CDER END
+Rule 34    first -> VARIABLE POINT FIRST PIZQ PDER
+Rule 35    last -> VARIABLE POINT LAST PIZQ PDER END
+Rule 36    length -> VARIABLE POINT LEN PIZQ PDER END
+Rule 37    add -> VARIABLE POINT ADD PIZQ valor PDER END
+Rule 38    remove -> VARIABLE POINT REMOVE PIZQ valor PDER END
+Rule 39    conjuntos -> LIZQ elementos LDER END
+Rule 40    elementos -> valor
+Rule 41    elementos -> valor COMA elementos
+Rule 42    expresion -> valor operadorMat expresion
+Rule 43    comparacion -> expresion operadorComp expresion
+Rule 44    operadorMat -> MAS
+Rule 45    operadorMat -> RESTA
+Rule 46    operadorMat -> PROD
+Rule 47    operadorMat -> DIV
+Rule 48    operadorMat -> MOD
+Rule 49    operadorComp -> MAYOR
+Rule 50    operadorComp -> MENOR
+Rule 51    operadorComp -> MAYORIG
+Rule 52    operadorComp -> MENORIG
+Rule 53    operadorComp -> DIGUAL
+Rule 54    operadorComp -> DIF
+Rule 55    tipo -> VAR
+Rule 56    tipo -> INT
+Rule 57    tipo -> BOOL
+Rule 58    tipo -> DOUBLE
+Rule 59    tipo -> empty
+Rule 60    tipo -> VOID
+Rule 61    tipo -> STR
+Rule 62    valor -> ENTERO
+Rule 63    valor -> VARIABLE
+Rule 64    sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+Rule 65    varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
+Rule 66    varianteIf -> ELSE LIZQ algoritmo LDER
+Rule 67    varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+Rule 68    varianteIf -> empty
+Rule 69    sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+Rule 70    parametros -> inicializacionFor END comparacion END VARIABLE increDecre
+Rule 71    parametros -> VARIABLE IN VARIABLE
+Rule 72    inicializacionFor -> VARIABLE IGUAL ENTERO
+Rule 73    inicializacionFor -> INT VARIABLE IGUAL ENTERO
+Rule 74    inicializacionFor -> VAR VARIABLE IGUAL ENTERO
+Rule 75    increDecre -> INCREMENTO
+Rule 76    increDecre -> DECREMENTO
+Rule 77    sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+Rule 78    sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+Rule 79    indexacion -> VARIABLE CIZQ valor CDER
+Rule 80    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ADD                  : 
+ADD                  : 37
 AND                  : 
-BOOL                 : 36
-BOOLEAN              : 12
+BOOL                 : 57
+BOOLEAN              : 16
 BREAK                : 
-CDER                 : 57
-CIZQ                 : 57
-COMA                 : 
+CDER                 : 33 79
+CIZQ                 : 33 79
+COMA                 : 1 13 41
 CONTINUE             : 
-DECREMENTO           : 54
-DIF                  : 33
-DIGUAL               : 32
-DIV                  : 26
-DO                   : 56
-DOUBLE               : 37
-ELSE                 : 44
-ELSEIF               : 43 45
-END                  : 9 19 42 47 48 48 55 56
-ENTERO               : 40 50 51 52
-FIRST                : 
-FOR                  : 47
-IF                   : 42
-IGUAL                : 9 50 51 52
-IN                   : 49
-INCREMENTO           : 53
-INPUT                : 
-INT                  : 35 51
-LAST                 : 
-LDER                 : 42 43 44 45 47 55 56
-LEN                  : 
-LIZQ                 : 42 43 44 45 47 55 56
-MAS                  : 18 23
-MAYOR                : 28
-MAYORIG              : 30
-MENOR                : 29
-MENORIG              : 31
-MOD                  : 27
+DECREMENTO           : 76
+DIF                  : 54
+DIGUAL               : 53
+DIV                  : 47
+DO                   : 78
+DOUBLE               : 58
+ELSE                 : 66
+ELSEIF               : 65 67
+END                  : 11 23 24 33 35 36 37 38 39 64 69 70 70 77 78
+ENTERO               : 62 72 73 74
+FIRST                : 34
+FOR                  : 69
+IF                   : 64
+IGUAL                : 11 24 72 73 74
+IN                   : 71
+INCREMENTO           : 75
+INPUT                : 24
+INT                  : 56 73
+LAST                 : 35
+LDER                 : 1 39 64 65 66 67 69 77 78
+LEN                  : 36
+LIZQ                 : 1 39 64 65 66 67 69 77 78
+MAS                  : 22 44
+MAYOR                : 49
+MAYORIG              : 51
+MENOR                : 50
+MENORIG              : 52
+MOD                  : 48
 NEGACION             : 
 OR                   : 
-PDER                 : 19 42 43 45 47 55 56
-PIZQ                 : 19 42 43 45 47 55 56
-POINT                : 
-PRINT                : 19
-PROD                 : 25
-REMOVE               : 
-RESTA                : 24
-RETURN               : 
+PDER                 : 1 23 24 34 35 36 37 38 64 65 67 69 77 78
+PIZQ                 : 1 23 24 34 35 36 37 38 64 65 67 69 77 78
+POINT                : 34 35 36 37 38
+PRINT                : 23
+PROD                 : 46
+REMOVE               : 38
+RESTA                : 45
+RETURN               : 1
 SLICE                : 
-STRING               : 15
-VAR                  : 34 52
-VARIABLE             : 9 17 41 48 49 49 50 51 52 57
-VOID                 : 39
-WHILE                : 55 56
+STR                  : 61
+STRING               : 19
+VAR                  : 55 74
+VARIABLE             : 1 11 12 13 21 24 34 35 36 37 38 63 70 71 71 72 73 74 79
+VOID                 : 60
+WHILE                : 77 78
 error                : 
 
 Nonterminals, with rules where they appear
 
-algoritmo            : 42 43 44 45 47 55 56 0
-asignacion           : 2
-comparacion          : 4 11 42 43 45 48 55 56
-empty                : 8 38 46
-expresion            : 3 10 21 22 22
-expresiones          : 9 19
-imprimir             : 1
-increDecre           : 48
-indexacion           : 14
-inicializacionFor    : 48
-operadorComp         : 22
-operadorMat          : 21
-opstring             : 13 18
-parametros           : 47
-sentenciaFOR         : 6
-sentenciaIf          : 5
-sentenciaWhile       : 7
-string               : 16 18
-tipo                 : 9
-valor                : 20 21 57
-varianteIf           : 42 45
+add                  : 32
+algoritmo            : 1 64 65 66 67 69 77 78
+asignacion           : 3
+comparacion          : 5 15 64 65 67 70 77 78
+conjuntos            : 27
+elementos            : 33 39 41
+empty                : 9 59 68
+expresion            : 4 14 42 43 43
+expresiones          : 11 23
+first                : 28
+funciones            : 0
+imprimir             : 2
+increDecre           : 70
+indexacion           : 18
+inicializacionFor    : 70
+input                : 10
+last                 : 29
+length               : 30
+lista                : 26
+operadorComp         : 43
+operadorMat          : 42
+opstring             : 17 22
+parametros           : 1 13 69
+remove               : 31
+sentenciaFOR         : 7
+sentenciaIf          : 6
+sentenciaWhile       : 8
+string               : 20 22
+tipo                 : 1 11 12 13 24
+valor                : 1 25 37 38 40 41 42 79
+varianteIf           : 64 67
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . algoritmo
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (0) S' -> . funciones
+    (1) funciones -> . tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (80) empty -> .
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    $end            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    VARIABLE        reduce using rule 80 (empty -> .)
 
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    algoritmo                      shift and go to state 1
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    comparacion                    shift and go to state 5
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
+    funciones                      shift and go to state 1
+    tipo                           shift and go to state 2
+    empty                          shift and go to state 7
 
 state 1
 
-    (0) S' -> algoritmo .
+    (0) S' -> funciones .
 
 
 
 state 2
 
-    (1) algoritmo -> imprimir .
+    (1) funciones -> tipo . VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
 
-    $end            reduce using rule 1 (algoritmo -> imprimir .)
-    LDER            reduce using rule 1 (algoritmo -> imprimir .)
+    VARIABLE        shift and go to state 10
 
 
 state 3
 
-    (2) algoritmo -> asignacion .
+    (55) tipo -> VAR .
 
-    $end            reduce using rule 2 (algoritmo -> asignacion .)
-    LDER            reduce using rule 2 (algoritmo -> asignacion .)
+    VARIABLE        reduce using rule 55 (tipo -> VAR .)
 
 
 state 4
 
-    (3) algoritmo -> expresion .
-    (22) comparacion -> expresion . operadorComp expresion
-    (28) operadorComp -> . MAYOR
-    (29) operadorComp -> . MENOR
-    (30) operadorComp -> . MAYORIG
-    (31) operadorComp -> . MENORIG
-    (32) operadorComp -> . DIGUAL
-    (33) operadorComp -> . DIF
+    (56) tipo -> INT .
 
-    $end            reduce using rule 3 (algoritmo -> expresion .)
-    LDER            reduce using rule 3 (algoritmo -> expresion .)
-    MAYOR           shift and go to state 25
-    MENOR           shift and go to state 26
-    MAYORIG         shift and go to state 27
-    MENORIG         shift and go to state 28
-    DIGUAL          shift and go to state 29
-    DIF             shift and go to state 30
+    VARIABLE        reduce using rule 56 (tipo -> INT .)
 
-    operadorComp                   shift and go to state 24
 
 state 5
 
-    (4) algoritmo -> comparacion .
+    (57) tipo -> BOOL .
 
-    $end            reduce using rule 4 (algoritmo -> comparacion .)
-    LDER            reduce using rule 4 (algoritmo -> comparacion .)
+    VARIABLE        reduce using rule 57 (tipo -> BOOL .)
 
 
 state 6
 
-    (5) algoritmo -> sentenciaIf .
+    (58) tipo -> DOUBLE .
 
-    $end            reduce using rule 5 (algoritmo -> sentenciaIf .)
-    LDER            reduce using rule 5 (algoritmo -> sentenciaIf .)
+    VARIABLE        reduce using rule 58 (tipo -> DOUBLE .)
 
 
 state 7
 
-    (6) algoritmo -> sentenciaFOR .
+    (59) tipo -> empty .
 
-    $end            reduce using rule 6 (algoritmo -> sentenciaFOR .)
-    LDER            reduce using rule 6 (algoritmo -> sentenciaFOR .)
+    VARIABLE        reduce using rule 59 (tipo -> empty .)
 
 
 state 8
 
-    (7) algoritmo -> sentenciaWhile .
+    (60) tipo -> VOID .
 
-    $end            reduce using rule 7 (algoritmo -> sentenciaWhile .)
-    LDER            reduce using rule 7 (algoritmo -> sentenciaWhile .)
+    VARIABLE        reduce using rule 60 (tipo -> VOID .)
 
 
 state 9
 
-    (8) algoritmo -> empty .
-    (38) tipo -> empty .
+    (61) tipo -> STR .
 
-    $end            reduce using rule 8 (algoritmo -> empty .)
-    LDER            reduce using rule 8 (algoritmo -> empty .)
-    VARIABLE        reduce using rule 38 (tipo -> empty .)
+    VARIABLE        reduce using rule 61 (tipo -> STR .)
 
 
 state 10
 
-    (19) imprimir -> PRINT . PIZQ expresiones PDER END
+    (1) funciones -> tipo VARIABLE . PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
 
-    PIZQ            shift and go to state 31
+    PIZQ            shift and go to state 11
 
 
 state 11
 
-    (9) asignacion -> tipo . VARIABLE IGUAL expresiones END
+    (1) funciones -> tipo VARIABLE PIZQ . parametros PDER LIZQ algoritmo RETURN valor COMA LDER
+    (12) parametros -> . tipo VARIABLE
+    (13) parametros -> . tipo VARIABLE COMA parametros
+    (70) parametros -> . inicializacionFor END comparacion END VARIABLE increDecre
+    (71) parametros -> . VARIABLE IN VARIABLE
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (72) inicializacionFor -> . VARIABLE IGUAL ENTERO
+    (73) inicializacionFor -> . INT VARIABLE IGUAL ENTERO
+    (74) inicializacionFor -> . VAR VARIABLE IGUAL ENTERO
+    (80) empty -> .
 
-    VARIABLE        shift and go to state 32
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    VARIABLE        shift and go to state 13
+    VAR             shift and go to state 16
+    INT             shift and go to state 17
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
 
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    tipo                           shift and go to state 12
+    parametros                     shift and go to state 14
+    inicializacionFor              shift and go to state 15
+    empty                          shift and go to state 7
 
 state 12
 
-    (41) valor -> VARIABLE .
+    (12) parametros -> tipo . VARIABLE
+    (13) parametros -> tipo . VARIABLE COMA parametros
 
-    MAS             reduce using rule 41 (valor -> VARIABLE .)
-    RESTA           reduce using rule 41 (valor -> VARIABLE .)
-    PROD            reduce using rule 41 (valor -> VARIABLE .)
-    DIV             reduce using rule 41 (valor -> VARIABLE .)
-    MOD             reduce using rule 41 (valor -> VARIABLE .)
-    MAYOR           reduce using rule 41 (valor -> VARIABLE .)
-    MENOR           reduce using rule 41 (valor -> VARIABLE .)
-    MAYORIG         reduce using rule 41 (valor -> VARIABLE .)
-    MENORIG         reduce using rule 41 (valor -> VARIABLE .)
-    DIGUAL          reduce using rule 41 (valor -> VARIABLE .)
-    DIF             reduce using rule 41 (valor -> VARIABLE .)
-    $end            reduce using rule 41 (valor -> VARIABLE .)
-    PDER            reduce using rule 41 (valor -> VARIABLE .)
-    LDER            reduce using rule 41 (valor -> VARIABLE .)
-    END             reduce using rule 41 (valor -> VARIABLE .)
-    CDER            reduce using rule 41 (valor -> VARIABLE .)
+    VARIABLE        shift and go to state 18
 
 
 state 13
 
-    (20) expresion -> valor .
-    (21) expresion -> valor . operadorMat expresion
-    (23) operadorMat -> . MAS
-    (24) operadorMat -> . RESTA
-    (25) operadorMat -> . PROD
-    (26) operadorMat -> . DIV
-    (27) operadorMat -> . MOD
+    (71) parametros -> VARIABLE . IN VARIABLE
+    (72) inicializacionFor -> VARIABLE . IGUAL ENTERO
 
-    MAYOR           reduce using rule 20 (expresion -> valor .)
-    MENOR           reduce using rule 20 (expresion -> valor .)
-    MAYORIG         reduce using rule 20 (expresion -> valor .)
-    MENORIG         reduce using rule 20 (expresion -> valor .)
-    DIGUAL          reduce using rule 20 (expresion -> valor .)
-    DIF             reduce using rule 20 (expresion -> valor .)
-    $end            reduce using rule 20 (expresion -> valor .)
-    PDER            reduce using rule 20 (expresion -> valor .)
-    LDER            reduce using rule 20 (expresion -> valor .)
-    END             reduce using rule 20 (expresion -> valor .)
-    MAS             shift and go to state 34
-    RESTA           shift and go to state 35
-    PROD            shift and go to state 36
-    DIV             shift and go to state 37
-    MOD             shift and go to state 38
+    IN              shift and go to state 19
+    IGUAL           shift and go to state 20
 
-    operadorMat                    shift and go to state 33
 
 state 14
 
-    (42) sentenciaIf -> IF . PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (1) funciones -> tipo VARIABLE PIZQ parametros . PDER LIZQ algoritmo RETURN valor COMA LDER
 
-    PIZQ            shift and go to state 39
+    PDER            shift and go to state 21
 
 
 state 15
 
-    (47) sentenciaFOR -> FOR . PIZQ parametros PDER LIZQ algoritmo LDER END
+    (70) parametros -> inicializacionFor . END comparacion END VARIABLE increDecre
 
-    PIZQ            shift and go to state 40
+    END             shift and go to state 22
 
 
 state 16
 
-    (55) sentenciaWhile -> WHILE . PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (55) tipo -> VAR .
+    (74) inicializacionFor -> VAR . VARIABLE IGUAL ENTERO
 
-    PIZQ            shift and go to state 41
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    VARIABLE        shift and go to state 23
+
+  ! VARIABLE        [ reduce using rule 55 (tipo -> VAR .) ]
 
 
 state 17
 
-    (56) sentenciaWhile -> DO . LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (56) tipo -> INT .
+    (73) inicializacionFor -> INT . VARIABLE IGUAL ENTERO
 
-    LIZQ            shift and go to state 42
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    VARIABLE        shift and go to state 24
+
+  ! VARIABLE        [ reduce using rule 56 (tipo -> INT .) ]
 
 
 state 18
 
-    (34) tipo -> VAR .
+    (12) parametros -> tipo VARIABLE .
+    (13) parametros -> tipo VARIABLE . COMA parametros
 
-    VARIABLE        reduce using rule 34 (tipo -> VAR .)
+    PDER            reduce using rule 12 (parametros -> tipo VARIABLE .)
+    COMA            shift and go to state 25
 
 
 state 19
 
-    (35) tipo -> INT .
+    (71) parametros -> VARIABLE IN . VARIABLE
 
-    VARIABLE        reduce using rule 35 (tipo -> INT .)
+    VARIABLE        shift and go to state 26
 
 
 state 20
 
-    (36) tipo -> BOOL .
+    (72) inicializacionFor -> VARIABLE IGUAL . ENTERO
 
-    VARIABLE        reduce using rule 36 (tipo -> BOOL .)
+    ENTERO          shift and go to state 27
 
 
 state 21
 
-    (37) tipo -> DOUBLE .
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER . LIZQ algoritmo RETURN valor COMA LDER
 
-    VARIABLE        reduce using rule 37 (tipo -> DOUBLE .)
+    LIZQ            shift and go to state 28
 
 
 state 22
 
-    (39) tipo -> VOID .
+    (70) parametros -> inicializacionFor END . comparacion END VARIABLE increDecre
+    (43) comparacion -> . expresion operadorComp expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
 
-    VARIABLE        reduce using rule 39 (tipo -> VOID .)
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
 
+    comparacion                    shift and go to state 29
+    expresion                      shift and go to state 31
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
 
 state 23
 
-    (40) valor -> ENTERO .
+    (74) inicializacionFor -> VAR VARIABLE . IGUAL ENTERO
 
-    MAS             reduce using rule 40 (valor -> ENTERO .)
-    RESTA           reduce using rule 40 (valor -> ENTERO .)
-    PROD            reduce using rule 40 (valor -> ENTERO .)
-    DIV             reduce using rule 40 (valor -> ENTERO .)
-    MOD             reduce using rule 40 (valor -> ENTERO .)
-    MAYOR           reduce using rule 40 (valor -> ENTERO .)
-    MENOR           reduce using rule 40 (valor -> ENTERO .)
-    MAYORIG         reduce using rule 40 (valor -> ENTERO .)
-    MENORIG         reduce using rule 40 (valor -> ENTERO .)
-    DIGUAL          reduce using rule 40 (valor -> ENTERO .)
-    DIF             reduce using rule 40 (valor -> ENTERO .)
-    $end            reduce using rule 40 (valor -> ENTERO .)
-    PDER            reduce using rule 40 (valor -> ENTERO .)
-    LDER            reduce using rule 40 (valor -> ENTERO .)
-    END             reduce using rule 40 (valor -> ENTERO .)
-    CDER            reduce using rule 40 (valor -> ENTERO .)
+    IGUAL           shift and go to state 43
 
 
 state 24
 
-    (22) comparacion -> expresion operadorComp . expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (73) inicializacionFor -> INT VARIABLE . IGUAL ENTERO
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    IGUAL           shift and go to state 44
 
-    expresion                      shift and go to state 43
-    valor                          shift and go to state 13
 
 state 25
 
-    (28) operadorComp -> MAYOR .
+    (13) parametros -> tipo VARIABLE COMA . parametros
+    (12) parametros -> . tipo VARIABLE
+    (13) parametros -> . tipo VARIABLE COMA parametros
+    (70) parametros -> . inicializacionFor END comparacion END VARIABLE increDecre
+    (71) parametros -> . VARIABLE IN VARIABLE
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (72) inicializacionFor -> . VARIABLE IGUAL ENTERO
+    (73) inicializacionFor -> . INT VARIABLE IGUAL ENTERO
+    (74) inicializacionFor -> . VAR VARIABLE IGUAL ENTERO
+    (80) empty -> .
 
-    ENTERO          reduce using rule 28 (operadorComp -> MAYOR .)
-    VARIABLE        reduce using rule 28 (operadorComp -> MAYOR .)
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    VARIABLE        shift and go to state 13
+    VAR             shift and go to state 16
+    INT             shift and go to state 17
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
 
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    tipo                           shift and go to state 12
+    parametros                     shift and go to state 45
+    inicializacionFor              shift and go to state 15
+    empty                          shift and go to state 7
 
 state 26
 
-    (29) operadorComp -> MENOR .
+    (71) parametros -> VARIABLE IN VARIABLE .
 
-    ENTERO          reduce using rule 29 (operadorComp -> MENOR .)
-    VARIABLE        reduce using rule 29 (operadorComp -> MENOR .)
+    PDER            reduce using rule 71 (parametros -> VARIABLE IN VARIABLE .)
 
 
 state 27
 
-    (30) operadorComp -> MAYORIG .
+    (72) inicializacionFor -> VARIABLE IGUAL ENTERO .
 
-    ENTERO          reduce using rule 30 (operadorComp -> MAYORIG .)
-    VARIABLE        reduce using rule 30 (operadorComp -> MAYORIG .)
+    END             reduce using rule 72 (inicializacionFor -> VARIABLE IGUAL ENTERO .)
 
 
 state 28
 
-    (31) operadorComp -> MENORIG .
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ . algoritmo RETURN valor COMA LDER
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
 
-    ENTERO          reduce using rule 31 (operadorComp -> MENORIG .)
-    VARIABLE        reduce using rule 31 (operadorComp -> MENORIG .)
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    RETURN          reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
 
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    tipo                           shift and go to state 46
+    algoritmo                      shift and go to state 47
+    valor                          shift and go to state 32
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    comparacion                    shift and go to state 51
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
 
 state 29
 
-    (32) operadorComp -> DIGUAL .
+    (70) parametros -> inicializacionFor END comparacion . END VARIABLE increDecre
 
-    ENTERO          reduce using rule 32 (operadorComp -> DIGUAL .)
-    VARIABLE        reduce using rule 32 (operadorComp -> DIGUAL .)
+    END             shift and go to state 62
 
 
 state 30
 
-    (33) operadorComp -> DIF .
+    (63) valor -> VARIABLE .
+    (34) first -> VARIABLE . POINT FIRST PIZQ PDER
+    (35) last -> VARIABLE . POINT LAST PIZQ PDER END
+    (36) length -> VARIABLE . POINT LEN PIZQ PDER END
+    (38) remove -> VARIABLE . POINT REMOVE PIZQ valor PDER END
+    (37) add -> VARIABLE . POINT ADD PIZQ valor PDER END
 
-    ENTERO          reduce using rule 33 (operadorComp -> DIF .)
-    VARIABLE        reduce using rule 33 (operadorComp -> DIF .)
+    MAS             reduce using rule 63 (valor -> VARIABLE .)
+    RESTA           reduce using rule 63 (valor -> VARIABLE .)
+    PROD            reduce using rule 63 (valor -> VARIABLE .)
+    DIV             reduce using rule 63 (valor -> VARIABLE .)
+    MOD             reduce using rule 63 (valor -> VARIABLE .)
+    MAYOR           reduce using rule 63 (valor -> VARIABLE .)
+    MENOR           reduce using rule 63 (valor -> VARIABLE .)
+    MAYORIG         reduce using rule 63 (valor -> VARIABLE .)
+    MENORIG         reduce using rule 63 (valor -> VARIABLE .)
+    DIGUAL          reduce using rule 63 (valor -> VARIABLE .)
+    DIF             reduce using rule 63 (valor -> VARIABLE .)
+    RETURN          reduce using rule 63 (valor -> VARIABLE .)
+    END             reduce using rule 63 (valor -> VARIABLE .)
+    PDER            reduce using rule 63 (valor -> VARIABLE .)
+    LDER            reduce using rule 63 (valor -> VARIABLE .)
+    POINT           shift and go to state 63
 
 
 state 31
 
-    (19) imprimir -> PRINT PIZQ . expresiones PDER END
-    (10) expresiones -> . expresion
-    (11) expresiones -> . comparacion
-    (12) expresiones -> . BOOLEAN
-    (13) expresiones -> . opstring
-    (14) expresiones -> . indexacion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (16) opstring -> . string
-    (17) opstring -> . VARIABLE
-    (18) opstring -> . string MAS opstring
-    (57) indexacion -> . VARIABLE CIZQ valor CDER
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-    (15) string -> . STRING
+    (43) comparacion -> expresion . operadorComp expresion
+    (49) operadorComp -> . MAYOR
+    (50) operadorComp -> . MENOR
+    (51) operadorComp -> . MAYORIG
+    (52) operadorComp -> . MENORIG
+    (53) operadorComp -> . DIGUAL
+    (54) operadorComp -> . DIF
 
-    BOOLEAN         shift and go to state 47
-    VARIABLE        shift and go to state 51
-    ENTERO          shift and go to state 23
-    STRING          shift and go to state 52
+    MAYOR           shift and go to state 65
+    MENOR           shift and go to state 66
+    MAYORIG         shift and go to state 67
+    MENORIG         shift and go to state 68
+    DIGUAL          shift and go to state 69
+    DIF             shift and go to state 70
 
-    expresiones                    shift and go to state 44
-    expresion                      shift and go to state 45
-    comparacion                    shift and go to state 46
-    opstring                       shift and go to state 48
-    indexacion                     shift and go to state 49
-    valor                          shift and go to state 13
-    string                         shift and go to state 50
+    operadorComp                   shift and go to state 64
 
 state 32
 
-    (9) asignacion -> tipo VARIABLE . IGUAL expresiones END
+    (25) expresion -> valor .
+    (42) expresion -> valor . operadorMat expresion
+    (44) operadorMat -> . MAS
+    (45) operadorMat -> . RESTA
+    (46) operadorMat -> . PROD
+    (47) operadorMat -> . DIV
+    (48) operadorMat -> . MOD
 
-    IGUAL           shift and go to state 53
+    MAYOR           reduce using rule 25 (expresion -> valor .)
+    MENOR           reduce using rule 25 (expresion -> valor .)
+    MAYORIG         reduce using rule 25 (expresion -> valor .)
+    MENORIG         reduce using rule 25 (expresion -> valor .)
+    DIGUAL          reduce using rule 25 (expresion -> valor .)
+    DIF             reduce using rule 25 (expresion -> valor .)
+    RETURN          reduce using rule 25 (expresion -> valor .)
+    END             reduce using rule 25 (expresion -> valor .)
+    PDER            reduce using rule 25 (expresion -> valor .)
+    LDER            reduce using rule 25 (expresion -> valor .)
+    MAS             shift and go to state 72
+    RESTA           shift and go to state 73
+    PROD            shift and go to state 74
+    DIV             shift and go to state 75
+    MOD             shift and go to state 76
 
+    operadorMat                    shift and go to state 71
 
 state 33
 
-    (21) expresion -> valor operadorMat . expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (26) expresion -> lista .
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    MAYOR           reduce using rule 26 (expresion -> lista .)
+    MENOR           reduce using rule 26 (expresion -> lista .)
+    MAYORIG         reduce using rule 26 (expresion -> lista .)
+    MENORIG         reduce using rule 26 (expresion -> lista .)
+    DIGUAL          reduce using rule 26 (expresion -> lista .)
+    DIF             reduce using rule 26 (expresion -> lista .)
+    RETURN          reduce using rule 26 (expresion -> lista .)
+    END             reduce using rule 26 (expresion -> lista .)
+    PDER            reduce using rule 26 (expresion -> lista .)
+    LDER            reduce using rule 26 (expresion -> lista .)
 
-    valor                          shift and go to state 13
-    expresion                      shift and go to state 54
 
 state 34
 
-    (23) operadorMat -> MAS .
+    (27) expresion -> conjuntos .
 
-    ENTERO          reduce using rule 23 (operadorMat -> MAS .)
-    VARIABLE        reduce using rule 23 (operadorMat -> MAS .)
+    MAYOR           reduce using rule 27 (expresion -> conjuntos .)
+    MENOR           reduce using rule 27 (expresion -> conjuntos .)
+    MAYORIG         reduce using rule 27 (expresion -> conjuntos .)
+    MENORIG         reduce using rule 27 (expresion -> conjuntos .)
+    DIGUAL          reduce using rule 27 (expresion -> conjuntos .)
+    DIF             reduce using rule 27 (expresion -> conjuntos .)
+    RETURN          reduce using rule 27 (expresion -> conjuntos .)
+    END             reduce using rule 27 (expresion -> conjuntos .)
+    PDER            reduce using rule 27 (expresion -> conjuntos .)
+    LDER            reduce using rule 27 (expresion -> conjuntos .)
 
 
 state 35
 
-    (24) operadorMat -> RESTA .
+    (28) expresion -> first .
 
-    ENTERO          reduce using rule 24 (operadorMat -> RESTA .)
-    VARIABLE        reduce using rule 24 (operadorMat -> RESTA .)
+    MAYOR           reduce using rule 28 (expresion -> first .)
+    MENOR           reduce using rule 28 (expresion -> first .)
+    MAYORIG         reduce using rule 28 (expresion -> first .)
+    MENORIG         reduce using rule 28 (expresion -> first .)
+    DIGUAL          reduce using rule 28 (expresion -> first .)
+    DIF             reduce using rule 28 (expresion -> first .)
+    RETURN          reduce using rule 28 (expresion -> first .)
+    END             reduce using rule 28 (expresion -> first .)
+    PDER            reduce using rule 28 (expresion -> first .)
+    LDER            reduce using rule 28 (expresion -> first .)
 
 
 state 36
 
-    (25) operadorMat -> PROD .
+    (29) expresion -> last .
 
-    ENTERO          reduce using rule 25 (operadorMat -> PROD .)
-    VARIABLE        reduce using rule 25 (operadorMat -> PROD .)
+    MAYOR           reduce using rule 29 (expresion -> last .)
+    MENOR           reduce using rule 29 (expresion -> last .)
+    MAYORIG         reduce using rule 29 (expresion -> last .)
+    MENORIG         reduce using rule 29 (expresion -> last .)
+    DIGUAL          reduce using rule 29 (expresion -> last .)
+    DIF             reduce using rule 29 (expresion -> last .)
+    RETURN          reduce using rule 29 (expresion -> last .)
+    END             reduce using rule 29 (expresion -> last .)
+    PDER            reduce using rule 29 (expresion -> last .)
+    LDER            reduce using rule 29 (expresion -> last .)
 
 
 state 37
 
-    (26) operadorMat -> DIV .
+    (30) expresion -> length .
 
-    ENTERO          reduce using rule 26 (operadorMat -> DIV .)
-    VARIABLE        reduce using rule 26 (operadorMat -> DIV .)
+    MAYOR           reduce using rule 30 (expresion -> length .)
+    MENOR           reduce using rule 30 (expresion -> length .)
+    MAYORIG         reduce using rule 30 (expresion -> length .)
+    MENORIG         reduce using rule 30 (expresion -> length .)
+    DIGUAL          reduce using rule 30 (expresion -> length .)
+    DIF             reduce using rule 30 (expresion -> length .)
+    RETURN          reduce using rule 30 (expresion -> length .)
+    END             reduce using rule 30 (expresion -> length .)
+    PDER            reduce using rule 30 (expresion -> length .)
+    LDER            reduce using rule 30 (expresion -> length .)
 
 
 state 38
 
-    (27) operadorMat -> MOD .
+    (31) expresion -> remove .
 
-    ENTERO          reduce using rule 27 (operadorMat -> MOD .)
-    VARIABLE        reduce using rule 27 (operadorMat -> MOD .)
+    MAYOR           reduce using rule 31 (expresion -> remove .)
+    MENOR           reduce using rule 31 (expresion -> remove .)
+    MAYORIG         reduce using rule 31 (expresion -> remove .)
+    MENORIG         reduce using rule 31 (expresion -> remove .)
+    DIGUAL          reduce using rule 31 (expresion -> remove .)
+    DIF             reduce using rule 31 (expresion -> remove .)
+    RETURN          reduce using rule 31 (expresion -> remove .)
+    END             reduce using rule 31 (expresion -> remove .)
+    PDER            reduce using rule 31 (expresion -> remove .)
+    LDER            reduce using rule 31 (expresion -> remove .)
 
 
 state 39
 
-    (42) sentenciaIf -> IF PIZQ . comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (22) comparacion -> . expresion operadorComp expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (32) expresion -> add .
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    MAYOR           reduce using rule 32 (expresion -> add .)
+    MENOR           reduce using rule 32 (expresion -> add .)
+    MAYORIG         reduce using rule 32 (expresion -> add .)
+    MENORIG         reduce using rule 32 (expresion -> add .)
+    DIGUAL          reduce using rule 32 (expresion -> add .)
+    DIF             reduce using rule 32 (expresion -> add .)
+    RETURN          reduce using rule 32 (expresion -> add .)
+    END             reduce using rule 32 (expresion -> add .)
+    PDER            reduce using rule 32 (expresion -> add .)
+    LDER            reduce using rule 32 (expresion -> add .)
 
-    comparacion                    shift and go to state 55
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 13
 
 state 40
 
-    (47) sentenciaFOR -> FOR PIZQ . parametros PDER LIZQ algoritmo LDER END
-    (48) parametros -> . inicializacionFor END comparacion END VARIABLE increDecre
-    (49) parametros -> . VARIABLE IN VARIABLE
-    (50) inicializacionFor -> . VARIABLE IGUAL ENTERO
-    (51) inicializacionFor -> . INT VARIABLE IGUAL ENTERO
-    (52) inicializacionFor -> . VAR VARIABLE IGUAL ENTERO
+    (62) valor -> ENTERO .
 
-    VARIABLE        shift and go to state 59
-    INT             shift and go to state 60
-    VAR             shift and go to state 61
+    MAS             reduce using rule 62 (valor -> ENTERO .)
+    RESTA           reduce using rule 62 (valor -> ENTERO .)
+    PROD            reduce using rule 62 (valor -> ENTERO .)
+    DIV             reduce using rule 62 (valor -> ENTERO .)
+    MOD             reduce using rule 62 (valor -> ENTERO .)
+    MAYOR           reduce using rule 62 (valor -> ENTERO .)
+    MENOR           reduce using rule 62 (valor -> ENTERO .)
+    MAYORIG         reduce using rule 62 (valor -> ENTERO .)
+    MENORIG         reduce using rule 62 (valor -> ENTERO .)
+    DIGUAL          reduce using rule 62 (valor -> ENTERO .)
+    DIF             reduce using rule 62 (valor -> ENTERO .)
+    RETURN          reduce using rule 62 (valor -> ENTERO .)
+    COMA            reduce using rule 62 (valor -> ENTERO .)
+    CDER            reduce using rule 62 (valor -> ENTERO .)
+    LDER            reduce using rule 62 (valor -> ENTERO .)
+    END             reduce using rule 62 (valor -> ENTERO .)
+    PDER            reduce using rule 62 (valor -> ENTERO .)
 
-    parametros                     shift and go to state 57
-    inicializacionFor              shift and go to state 58
 
 state 41
 
-    (55) sentenciaWhile -> WHILE PIZQ . comparacion PDER LIZQ algoritmo LDER END
-    (22) comparacion -> . expresion operadorComp expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (33) lista -> CIZQ . elementos CDER END
+    (40) elementos -> . valor
+    (41) elementos -> . valor COMA elementos
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
 
-    comparacion                    shift and go to state 62
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 13
+    elementos                      shift and go to state 77
+    valor                          shift and go to state 78
 
 state 42
 
-    (56) sentenciaWhile -> DO LIZQ . algoritmo LDER WHILE PIZQ comparacion PDER END
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (39) conjuntos -> LIZQ . elementos LDER END
+    (40) elementos -> . valor
+    (41) elementos -> . valor COMA elementos
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
 
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    algoritmo                      shift and go to state 63
-    comparacion                    shift and go to state 5
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
+    elementos                      shift and go to state 80
+    valor                          shift and go to state 78
 
 state 43
 
-    (22) comparacion -> expresion operadorComp expresion .
+    (74) inicializacionFor -> VAR VARIABLE IGUAL . ENTERO
 
-    $end            reduce using rule 22 (comparacion -> expresion operadorComp expresion .)
-    PDER            reduce using rule 22 (comparacion -> expresion operadorComp expresion .)
-    LDER            reduce using rule 22 (comparacion -> expresion operadorComp expresion .)
-    END             reduce using rule 22 (comparacion -> expresion operadorComp expresion .)
+    ENTERO          shift and go to state 81
 
 
 state 44
 
-    (19) imprimir -> PRINT PIZQ expresiones . PDER END
+    (73) inicializacionFor -> INT VARIABLE IGUAL . ENTERO
 
-    PDER            shift and go to state 64
+    ENTERO          shift and go to state 82
 
 
 state 45
 
-    (10) expresiones -> expresion .
-    (22) comparacion -> expresion . operadorComp expresion
-    (28) operadorComp -> . MAYOR
-    (29) operadorComp -> . MENOR
-    (30) operadorComp -> . MAYORIG
-    (31) operadorComp -> . MENORIG
-    (32) operadorComp -> . DIGUAL
-    (33) operadorComp -> . DIF
+    (13) parametros -> tipo VARIABLE COMA parametros .
 
-    PDER            reduce using rule 10 (expresiones -> expresion .)
-    END             reduce using rule 10 (expresiones -> expresion .)
-    MAYOR           shift and go to state 25
-    MENOR           shift and go to state 26
-    MAYORIG         shift and go to state 27
-    MENORIG         shift and go to state 28
-    DIGUAL          shift and go to state 29
-    DIF             shift and go to state 30
+    PDER            reduce using rule 13 (parametros -> tipo VARIABLE COMA parametros .)
 
-    operadorComp                   shift and go to state 24
 
 state 46
 
-    (11) expresiones -> comparacion .
+    (11) asignacion -> tipo . VARIABLE IGUAL expresiones END
+    (24) input -> tipo . VARIABLE IGUAL INPUT PIZQ PDER END
 
-    PDER            reduce using rule 11 (expresiones -> comparacion .)
-    END             reduce using rule 11 (expresiones -> comparacion .)
+    VARIABLE        shift and go to state 83
 
 
 state 47
 
-    (12) expresiones -> BOOLEAN .
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo . RETURN valor COMA LDER
 
-    PDER            reduce using rule 12 (expresiones -> BOOLEAN .)
-    END             reduce using rule 12 (expresiones -> BOOLEAN .)
+    RETURN          shift and go to state 84
 
 
 state 48
 
-    (13) expresiones -> opstring .
+    (2) algoritmo -> imprimir .
 
-    PDER            reduce using rule 13 (expresiones -> opstring .)
-    END             reduce using rule 13 (expresiones -> opstring .)
+    RETURN          reduce using rule 2 (algoritmo -> imprimir .)
+    LDER            reduce using rule 2 (algoritmo -> imprimir .)
 
 
 state 49
 
-    (14) expresiones -> indexacion .
+    (3) algoritmo -> asignacion .
 
-    PDER            reduce using rule 14 (expresiones -> indexacion .)
-    END             reduce using rule 14 (expresiones -> indexacion .)
+    RETURN          reduce using rule 3 (algoritmo -> asignacion .)
+    LDER            reduce using rule 3 (algoritmo -> asignacion .)
 
 
 state 50
 
-    (16) opstring -> string .
-    (18) opstring -> string . MAS opstring
+    (4) algoritmo -> expresion .
+    (43) comparacion -> expresion . operadorComp expresion
+    (49) operadorComp -> . MAYOR
+    (50) operadorComp -> . MENOR
+    (51) operadorComp -> . MAYORIG
+    (52) operadorComp -> . MENORIG
+    (53) operadorComp -> . DIGUAL
+    (54) operadorComp -> . DIF
 
-    PDER            reduce using rule 16 (opstring -> string .)
-    END             reduce using rule 16 (opstring -> string .)
-    MAS             shift and go to state 65
+    RETURN          reduce using rule 4 (algoritmo -> expresion .)
+    LDER            reduce using rule 4 (algoritmo -> expresion .)
+    MAYOR           shift and go to state 65
+    MENOR           shift and go to state 66
+    MAYORIG         shift and go to state 67
+    MENORIG         shift and go to state 68
+    DIGUAL          shift and go to state 69
+    DIF             shift and go to state 70
 
+    operadorComp                   shift and go to state 64
 
 state 51
 
-    (17) opstring -> VARIABLE .
-    (57) indexacion -> VARIABLE . CIZQ valor CDER
-    (41) valor -> VARIABLE .
+    (5) algoritmo -> comparacion .
 
-  ! reduce/reduce conflict for PDER resolved using rule 17 (opstring -> VARIABLE .)
-  ! reduce/reduce conflict for END resolved using rule 17 (opstring -> VARIABLE .)
-    PDER            reduce using rule 17 (opstring -> VARIABLE .)
-    END             reduce using rule 17 (opstring -> VARIABLE .)
-    CIZQ            shift and go to state 66
-    MAS             reduce using rule 41 (valor -> VARIABLE .)
-    RESTA           reduce using rule 41 (valor -> VARIABLE .)
-    PROD            reduce using rule 41 (valor -> VARIABLE .)
-    DIV             reduce using rule 41 (valor -> VARIABLE .)
-    MOD             reduce using rule 41 (valor -> VARIABLE .)
-    MAYOR           reduce using rule 41 (valor -> VARIABLE .)
-    MENOR           reduce using rule 41 (valor -> VARIABLE .)
-    MAYORIG         reduce using rule 41 (valor -> VARIABLE .)
-    MENORIG         reduce using rule 41 (valor -> VARIABLE .)
-    DIGUAL          reduce using rule 41 (valor -> VARIABLE .)
-    DIF             reduce using rule 41 (valor -> VARIABLE .)
-
-  ! PDER            [ reduce using rule 41 (valor -> VARIABLE .) ]
-  ! END             [ reduce using rule 41 (valor -> VARIABLE .) ]
+    RETURN          reduce using rule 5 (algoritmo -> comparacion .)
+    LDER            reduce using rule 5 (algoritmo -> comparacion .)
 
 
 state 52
 
-    (15) string -> STRING .
+    (6) algoritmo -> sentenciaIf .
 
-    MAS             reduce using rule 15 (string -> STRING .)
-    PDER            reduce using rule 15 (string -> STRING .)
-    END             reduce using rule 15 (string -> STRING .)
+    RETURN          reduce using rule 6 (algoritmo -> sentenciaIf .)
+    LDER            reduce using rule 6 (algoritmo -> sentenciaIf .)
 
 
 state 53
 
-    (9) asignacion -> tipo VARIABLE IGUAL . expresiones END
-    (10) expresiones -> . expresion
-    (11) expresiones -> . comparacion
-    (12) expresiones -> . BOOLEAN
-    (13) expresiones -> . opstring
-    (14) expresiones -> . indexacion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (16) opstring -> . string
-    (17) opstring -> . VARIABLE
-    (18) opstring -> . string MAS opstring
-    (57) indexacion -> . VARIABLE CIZQ valor CDER
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-    (15) string -> . STRING
+    (7) algoritmo -> sentenciaFOR .
 
-    BOOLEAN         shift and go to state 47
-    VARIABLE        shift and go to state 51
-    ENTERO          shift and go to state 23
-    STRING          shift and go to state 52
+    RETURN          reduce using rule 7 (algoritmo -> sentenciaFOR .)
+    LDER            reduce using rule 7 (algoritmo -> sentenciaFOR .)
 
-    expresiones                    shift and go to state 67
-    expresion                      shift and go to state 45
-    comparacion                    shift and go to state 46
-    opstring                       shift and go to state 48
-    indexacion                     shift and go to state 49
-    valor                          shift and go to state 13
-    string                         shift and go to state 50
 
 state 54
 
-    (21) expresion -> valor operadorMat expresion .
+    (8) algoritmo -> sentenciaWhile .
 
-    MAYOR           reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    MENOR           reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    MAYORIG         reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    MENORIG         reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    DIGUAL          reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    DIF             reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    $end            reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    PDER            reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    LDER            reduce using rule 21 (expresion -> valor operadorMat expresion .)
-    END             reduce using rule 21 (expresion -> valor operadorMat expresion .)
+    RETURN          reduce using rule 8 (algoritmo -> sentenciaWhile .)
+    LDER            reduce using rule 8 (algoritmo -> sentenciaWhile .)
 
 
 state 55
 
-    (42) sentenciaIf -> IF PIZQ comparacion . PDER LIZQ algoritmo LDER varianteIf END
+    (9) algoritmo -> empty .
+    (59) tipo -> empty .
 
-    PDER            shift and go to state 68
+    RETURN          reduce using rule 9 (algoritmo -> empty .)
+    LDER            reduce using rule 9 (algoritmo -> empty .)
+    VARIABLE        reduce using rule 59 (tipo -> empty .)
 
 
 state 56
 
-    (22) comparacion -> expresion . operadorComp expresion
-    (28) operadorComp -> . MAYOR
-    (29) operadorComp -> . MENOR
-    (30) operadorComp -> . MAYORIG
-    (31) operadorComp -> . MENORIG
-    (32) operadorComp -> . DIGUAL
-    (33) operadorComp -> . DIF
+    (10) algoritmo -> input .
 
-    MAYOR           shift and go to state 25
-    MENOR           shift and go to state 26
-    MAYORIG         shift and go to state 27
-    MENORIG         shift and go to state 28
-    DIGUAL          shift and go to state 29
-    DIF             shift and go to state 30
+    RETURN          reduce using rule 10 (algoritmo -> input .)
+    LDER            reduce using rule 10 (algoritmo -> input .)
 
-    operadorComp                   shift and go to state 24
 
 state 57
 
-    (47) sentenciaFOR -> FOR PIZQ parametros . PDER LIZQ algoritmo LDER END
+    (23) imprimir -> PRINT . PIZQ expresiones PDER END
 
-    PDER            shift and go to state 69
+    PIZQ            shift and go to state 85
 
 
 state 58
 
-    (48) parametros -> inicializacionFor . END comparacion END VARIABLE increDecre
+    (64) sentenciaIf -> IF . PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
 
-    END             shift and go to state 70
+    PIZQ            shift and go to state 86
 
 
 state 59
 
-    (49) parametros -> VARIABLE . IN VARIABLE
-    (50) inicializacionFor -> VARIABLE . IGUAL ENTERO
+    (69) sentenciaFOR -> FOR . PIZQ parametros PDER LIZQ algoritmo LDER END
 
-    IN              shift and go to state 71
-    IGUAL           shift and go to state 72
+    PIZQ            shift and go to state 87
 
 
 state 60
 
-    (51) inicializacionFor -> INT . VARIABLE IGUAL ENTERO
+    (77) sentenciaWhile -> WHILE . PIZQ comparacion PDER LIZQ algoritmo LDER END
 
-    VARIABLE        shift and go to state 73
+    PIZQ            shift and go to state 88
 
 
 state 61
 
-    (52) inicializacionFor -> VAR . VARIABLE IGUAL ENTERO
-
-    VARIABLE        shift and go to state 74
-
-
-state 62
-
-    (55) sentenciaWhile -> WHILE PIZQ comparacion . PDER LIZQ algoritmo LDER END
-
-    PDER            shift and go to state 75
-
-
-state 63
-
-    (56) sentenciaWhile -> DO LIZQ algoritmo . LDER WHILE PIZQ comparacion PDER END
-
-    LDER            shift and go to state 76
-
-
-state 64
-
-    (19) imprimir -> PRINT PIZQ expresiones PDER . END
-
-    END             shift and go to state 77
-
-
-state 65
-
-    (18) opstring -> string MAS . opstring
-    (16) opstring -> . string
-    (17) opstring -> . VARIABLE
-    (18) opstring -> . string MAS opstring
-    (15) string -> . STRING
-
-    VARIABLE        shift and go to state 79
-    STRING          shift and go to state 52
-
-    string                         shift and go to state 50
-    opstring                       shift and go to state 78
-
-state 66
-
-    (57) indexacion -> VARIABLE CIZQ . valor CDER
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
-
-    valor                          shift and go to state 80
-
-state 67
-
-    (9) asignacion -> tipo VARIABLE IGUAL expresiones . END
-
-    END             shift and go to state 81
-
-
-state 68
-
-    (42) sentenciaIf -> IF PIZQ comparacion PDER . LIZQ algoritmo LDER varianteIf END
-
-    LIZQ            shift and go to state 82
-
-
-state 69
-
-    (47) sentenciaFOR -> FOR PIZQ parametros PDER . LIZQ algoritmo LDER END
-
-    LIZQ            shift and go to state 83
-
-
-state 70
-
-    (48) parametros -> inicializacionFor END . comparacion END VARIABLE increDecre
-    (22) comparacion -> . expresion operadorComp expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
-
-    comparacion                    shift and go to state 84
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 13
-
-state 71
-
-    (49) parametros -> VARIABLE IN . VARIABLE
-
-    VARIABLE        shift and go to state 85
-
-
-state 72
-
-    (50) inicializacionFor -> VARIABLE IGUAL . ENTERO
-
-    ENTERO          shift and go to state 86
-
-
-state 73
-
-    (51) inicializacionFor -> INT VARIABLE . IGUAL ENTERO
-
-    IGUAL           shift and go to state 87
-
-
-state 74
-
-    (52) inicializacionFor -> VAR VARIABLE . IGUAL ENTERO
-
-    IGUAL           shift and go to state 88
-
-
-state 75
-
-    (55) sentenciaWhile -> WHILE PIZQ comparacion PDER . LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> DO . LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
 
     LIZQ            shift and go to state 89
 
 
+state 62
+
+    (70) parametros -> inicializacionFor END comparacion END . VARIABLE increDecre
+
+    VARIABLE        shift and go to state 90
+
+
+state 63
+
+    (34) first -> VARIABLE POINT . FIRST PIZQ PDER
+    (35) last -> VARIABLE POINT . LAST PIZQ PDER END
+    (36) length -> VARIABLE POINT . LEN PIZQ PDER END
+    (38) remove -> VARIABLE POINT . REMOVE PIZQ valor PDER END
+    (37) add -> VARIABLE POINT . ADD PIZQ valor PDER END
+
+    FIRST           shift and go to state 91
+    LAST            shift and go to state 92
+    LEN             shift and go to state 93
+    REMOVE          shift and go to state 94
+    ADD             shift and go to state 95
+
+
+state 64
+
+    (43) comparacion -> expresion operadorComp . expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    expresion                      shift and go to state 96
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 65
+
+    (49) operadorComp -> MAYOR .
+
+    ENTERO          reduce using rule 49 (operadorComp -> MAYOR .)
+    VARIABLE        reduce using rule 49 (operadorComp -> MAYOR .)
+    CIZQ            reduce using rule 49 (operadorComp -> MAYOR .)
+    LIZQ            reduce using rule 49 (operadorComp -> MAYOR .)
+
+
+state 66
+
+    (50) operadorComp -> MENOR .
+
+    ENTERO          reduce using rule 50 (operadorComp -> MENOR .)
+    VARIABLE        reduce using rule 50 (operadorComp -> MENOR .)
+    CIZQ            reduce using rule 50 (operadorComp -> MENOR .)
+    LIZQ            reduce using rule 50 (operadorComp -> MENOR .)
+
+
+state 67
+
+    (51) operadorComp -> MAYORIG .
+
+    ENTERO          reduce using rule 51 (operadorComp -> MAYORIG .)
+    VARIABLE        reduce using rule 51 (operadorComp -> MAYORIG .)
+    CIZQ            reduce using rule 51 (operadorComp -> MAYORIG .)
+    LIZQ            reduce using rule 51 (operadorComp -> MAYORIG .)
+
+
+state 68
+
+    (52) operadorComp -> MENORIG .
+
+    ENTERO          reduce using rule 52 (operadorComp -> MENORIG .)
+    VARIABLE        reduce using rule 52 (operadorComp -> MENORIG .)
+    CIZQ            reduce using rule 52 (operadorComp -> MENORIG .)
+    LIZQ            reduce using rule 52 (operadorComp -> MENORIG .)
+
+
+state 69
+
+    (53) operadorComp -> DIGUAL .
+
+    ENTERO          reduce using rule 53 (operadorComp -> DIGUAL .)
+    VARIABLE        reduce using rule 53 (operadorComp -> DIGUAL .)
+    CIZQ            reduce using rule 53 (operadorComp -> DIGUAL .)
+    LIZQ            reduce using rule 53 (operadorComp -> DIGUAL .)
+
+
+state 70
+
+    (54) operadorComp -> DIF .
+
+    ENTERO          reduce using rule 54 (operadorComp -> DIF .)
+    VARIABLE        reduce using rule 54 (operadorComp -> DIF .)
+    CIZQ            reduce using rule 54 (operadorComp -> DIF .)
+    LIZQ            reduce using rule 54 (operadorComp -> DIF .)
+
+
+state 71
+
+    (42) expresion -> valor operadorMat . expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    valor                          shift and go to state 32
+    expresion                      shift and go to state 97
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 72
+
+    (44) operadorMat -> MAS .
+
+    ENTERO          reduce using rule 44 (operadorMat -> MAS .)
+    VARIABLE        reduce using rule 44 (operadorMat -> MAS .)
+    CIZQ            reduce using rule 44 (operadorMat -> MAS .)
+    LIZQ            reduce using rule 44 (operadorMat -> MAS .)
+
+
+state 73
+
+    (45) operadorMat -> RESTA .
+
+    ENTERO          reduce using rule 45 (operadorMat -> RESTA .)
+    VARIABLE        reduce using rule 45 (operadorMat -> RESTA .)
+    CIZQ            reduce using rule 45 (operadorMat -> RESTA .)
+    LIZQ            reduce using rule 45 (operadorMat -> RESTA .)
+
+
+state 74
+
+    (46) operadorMat -> PROD .
+
+    ENTERO          reduce using rule 46 (operadorMat -> PROD .)
+    VARIABLE        reduce using rule 46 (operadorMat -> PROD .)
+    CIZQ            reduce using rule 46 (operadorMat -> PROD .)
+    LIZQ            reduce using rule 46 (operadorMat -> PROD .)
+
+
+state 75
+
+    (47) operadorMat -> DIV .
+
+    ENTERO          reduce using rule 47 (operadorMat -> DIV .)
+    VARIABLE        reduce using rule 47 (operadorMat -> DIV .)
+    CIZQ            reduce using rule 47 (operadorMat -> DIV .)
+    LIZQ            reduce using rule 47 (operadorMat -> DIV .)
+
+
 state 76
 
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER . WHILE PIZQ comparacion PDER END
+    (48) operadorMat -> MOD .
 
-    WHILE           shift and go to state 90
+    ENTERO          reduce using rule 48 (operadorMat -> MOD .)
+    VARIABLE        reduce using rule 48 (operadorMat -> MOD .)
+    CIZQ            reduce using rule 48 (operadorMat -> MOD .)
+    LIZQ            reduce using rule 48 (operadorMat -> MOD .)
 
 
 state 77
 
-    (19) imprimir -> PRINT PIZQ expresiones PDER END .
+    (33) lista -> CIZQ elementos . CDER END
 
-    $end            reduce using rule 19 (imprimir -> PRINT PIZQ expresiones PDER END .)
-    LDER            reduce using rule 19 (imprimir -> PRINT PIZQ expresiones PDER END .)
+    CDER            shift and go to state 98
 
 
 state 78
 
-    (18) opstring -> string MAS opstring .
+    (40) elementos -> valor .
+    (41) elementos -> valor . COMA elementos
 
-    PDER            reduce using rule 18 (opstring -> string MAS opstring .)
-    END             reduce using rule 18 (opstring -> string MAS opstring .)
+    CDER            reduce using rule 40 (elementos -> valor .)
+    LDER            reduce using rule 40 (elementos -> valor .)
+    COMA            shift and go to state 99
 
 
 state 79
 
-    (17) opstring -> VARIABLE .
+    (63) valor -> VARIABLE .
 
-    PDER            reduce using rule 17 (opstring -> VARIABLE .)
-    END             reduce using rule 17 (opstring -> VARIABLE .)
+    COMA            reduce using rule 63 (valor -> VARIABLE .)
+    CDER            reduce using rule 63 (valor -> VARIABLE .)
+    LDER            reduce using rule 63 (valor -> VARIABLE .)
+    PDER            reduce using rule 63 (valor -> VARIABLE .)
 
 
 state 80
 
-    (57) indexacion -> VARIABLE CIZQ valor . CDER
-
-    CDER            shift and go to state 91
-
-
-state 81
-
-    (9) asignacion -> tipo VARIABLE IGUAL expresiones END .
-
-    $end            reduce using rule 9 (asignacion -> tipo VARIABLE IGUAL expresiones END .)
-    LDER            reduce using rule 9 (asignacion -> tipo VARIABLE IGUAL expresiones END .)
-
-
-state 82
-
-    (42) sentenciaIf -> IF PIZQ comparacion PDER LIZQ . algoritmo LDER varianteIf END
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
-
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    comparacion                    shift and go to state 5
-    algoritmo                      shift and go to state 92
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
-
-state 83
-
-    (47) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ . algoritmo LDER END
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
-
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    algoritmo                      shift and go to state 93
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    comparacion                    shift and go to state 5
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
-
-state 84
-
-    (48) parametros -> inicializacionFor END comparacion . END VARIABLE increDecre
-
-    END             shift and go to state 94
-
-
-state 85
-
-    (49) parametros -> VARIABLE IN VARIABLE .
-
-    PDER            reduce using rule 49 (parametros -> VARIABLE IN VARIABLE .)
-
-
-state 86
-
-    (50) inicializacionFor -> VARIABLE IGUAL ENTERO .
-
-    END             reduce using rule 50 (inicializacionFor -> VARIABLE IGUAL ENTERO .)
-
-
-state 87
-
-    (51) inicializacionFor -> INT VARIABLE IGUAL . ENTERO
-
-    ENTERO          shift and go to state 95
-
-
-state 88
-
-    (52) inicializacionFor -> VAR VARIABLE IGUAL . ENTERO
-
-    ENTERO          shift and go to state 96
-
-
-state 89
-
-    (55) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ . algoritmo LDER END
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
-
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
-
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    comparacion                    shift and go to state 5
-    algoritmo                      shift and go to state 97
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
-
-state 90
-
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE . PIZQ comparacion PDER END
-
-    PIZQ            shift and go to state 98
-
-
-state 91
-
-    (57) indexacion -> VARIABLE CIZQ valor CDER .
-
-    PDER            reduce using rule 57 (indexacion -> VARIABLE CIZQ valor CDER .)
-    END             reduce using rule 57 (indexacion -> VARIABLE CIZQ valor CDER .)
-
-
-state 92
-
-    (42) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo . LDER varianteIf END
-
-    LDER            shift and go to state 99
-
-
-state 93
-
-    (47) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo . LDER END
+    (39) conjuntos -> LIZQ elementos . LDER END
 
     LDER            shift and go to state 100
 
 
+state 81
+
+    (74) inicializacionFor -> VAR VARIABLE IGUAL ENTERO .
+
+    END             reduce using rule 74 (inicializacionFor -> VAR VARIABLE IGUAL ENTERO .)
+
+
+state 82
+
+    (73) inicializacionFor -> INT VARIABLE IGUAL ENTERO .
+
+    END             reduce using rule 73 (inicializacionFor -> INT VARIABLE IGUAL ENTERO .)
+
+
+state 83
+
+    (11) asignacion -> tipo VARIABLE . IGUAL expresiones END
+    (24) input -> tipo VARIABLE . IGUAL INPUT PIZQ PDER END
+
+    IGUAL           shift and go to state 101
+
+
+state 84
+
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN . valor COMA LDER
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
+
+    valor                          shift and go to state 102
+
+state 85
+
+    (23) imprimir -> PRINT PIZQ . expresiones PDER END
+    (14) expresiones -> . expresion
+    (15) expresiones -> . comparacion
+    (16) expresiones -> . BOOLEAN
+    (17) expresiones -> . opstring
+    (18) expresiones -> . indexacion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (20) opstring -> . string
+    (21) opstring -> . VARIABLE
+    (22) opstring -> . string MAS opstring
+    (79) indexacion -> . VARIABLE CIZQ valor CDER
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+    (19) string -> . STRING
+
+    BOOLEAN         shift and go to state 106
+    VARIABLE        shift and go to state 110
+    ENTERO          shift and go to state 40
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+    STRING          shift and go to state 111
+
+    expresiones                    shift and go to state 103
+    expresion                      shift and go to state 104
+    comparacion                    shift and go to state 105
+    opstring                       shift and go to state 107
+    indexacion                     shift and go to state 108
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+    string                         shift and go to state 109
+
+state 86
+
+    (64) sentenciaIf -> IF PIZQ . comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (43) comparacion -> . expresion operadorComp expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    comparacion                    shift and go to state 112
+    expresion                      shift and go to state 31
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 87
+
+    (69) sentenciaFOR -> FOR PIZQ . parametros PDER LIZQ algoritmo LDER END
+    (12) parametros -> . tipo VARIABLE
+    (13) parametros -> . tipo VARIABLE COMA parametros
+    (70) parametros -> . inicializacionFor END comparacion END VARIABLE increDecre
+    (71) parametros -> . VARIABLE IN VARIABLE
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (72) inicializacionFor -> . VARIABLE IGUAL ENTERO
+    (73) inicializacionFor -> . INT VARIABLE IGUAL ENTERO
+    (74) inicializacionFor -> . VAR VARIABLE IGUAL ENTERO
+    (80) empty -> .
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    VARIABLE        shift and go to state 13
+    VAR             shift and go to state 16
+    INT             shift and go to state 17
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    parametros                     shift and go to state 113
+    tipo                           shift and go to state 12
+    inicializacionFor              shift and go to state 15
+    empty                          shift and go to state 7
+
+state 88
+
+    (77) sentenciaWhile -> WHILE PIZQ . comparacion PDER LIZQ algoritmo LDER END
+    (43) comparacion -> . expresion operadorComp expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    comparacion                    shift and go to state 114
+    expresion                      shift and go to state 31
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 89
+
+    (78) sentenciaWhile -> DO LIZQ . algoritmo LDER WHILE PIZQ comparacion PDER END
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    algoritmo                      shift and go to state 115
+    comparacion                    shift and go to state 51
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 90
+
+    (70) parametros -> inicializacionFor END comparacion END VARIABLE . increDecre
+    (75) increDecre -> . INCREMENTO
+    (76) increDecre -> . DECREMENTO
+
+    INCREMENTO      shift and go to state 117
+    DECREMENTO      shift and go to state 118
+
+    increDecre                     shift and go to state 116
+
+state 91
+
+    (34) first -> VARIABLE POINT FIRST . PIZQ PDER
+
+    PIZQ            shift and go to state 119
+
+
+state 92
+
+    (35) last -> VARIABLE POINT LAST . PIZQ PDER END
+
+    PIZQ            shift and go to state 120
+
+
+state 93
+
+    (36) length -> VARIABLE POINT LEN . PIZQ PDER END
+
+    PIZQ            shift and go to state 121
+
+
 state 94
 
-    (48) parametros -> inicializacionFor END comparacion END . VARIABLE increDecre
+    (38) remove -> VARIABLE POINT REMOVE . PIZQ valor PDER END
 
-    VARIABLE        shift and go to state 101
+    PIZQ            shift and go to state 122
 
 
 state 95
 
-    (51) inicializacionFor -> INT VARIABLE IGUAL ENTERO .
+    (37) add -> VARIABLE POINT ADD . PIZQ valor PDER END
 
-    END             reduce using rule 51 (inicializacionFor -> INT VARIABLE IGUAL ENTERO .)
+    PIZQ            shift and go to state 123
 
 
 state 96
 
-    (52) inicializacionFor -> VAR VARIABLE IGUAL ENTERO .
+    (43) comparacion -> expresion operadorComp expresion .
 
-    END             reduce using rule 52 (inicializacionFor -> VAR VARIABLE IGUAL ENTERO .)
+    END             reduce using rule 43 (comparacion -> expresion operadorComp expresion .)
+    RETURN          reduce using rule 43 (comparacion -> expresion operadorComp expresion .)
+    PDER            reduce using rule 43 (comparacion -> expresion operadorComp expresion .)
+    LDER            reduce using rule 43 (comparacion -> expresion operadorComp expresion .)
 
 
 state 97
 
-    (55) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo . LDER END
+    (42) expresion -> valor operadorMat expresion .
 
-    LDER            shift and go to state 102
+    MAYOR           reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    MENOR           reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    MAYORIG         reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    MENORIG         reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    DIGUAL          reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    DIF             reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    RETURN          reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    END             reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    PDER            reduce using rule 42 (expresion -> valor operadorMat expresion .)
+    LDER            reduce using rule 42 (expresion -> valor operadorMat expresion .)
 
 
 state 98
 
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ . comparacion PDER END
-    (22) comparacion -> . expresion operadorComp expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (33) lista -> CIZQ elementos CDER . END
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    END             shift and go to state 124
 
-    comparacion                    shift and go to state 103
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 13
 
 state 99
 
-    (42) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER . varianteIf END
-    (43) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
-    (44) varianteIf -> . ELSE LIZQ algoritmo LDER
-    (45) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
-    (46) varianteIf -> . empty
-    (58) empty -> .
+    (41) elementos -> valor COMA . elementos
+    (40) elementos -> . valor
+    (41) elementos -> . valor COMA elementos
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
 
-    ELSEIF          shift and go to state 105
-    ELSE            shift and go to state 106
-    END             reduce using rule 58 (empty -> .)
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
 
-    varianteIf                     shift and go to state 104
-    empty                          shift and go to state 107
+    valor                          shift and go to state 78
+    elementos                      shift and go to state 125
 
 state 100
 
-    (47) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER . END
+    (39) conjuntos -> LIZQ elementos LDER . END
 
-    END             shift and go to state 108
+    END             shift and go to state 126
 
 
 state 101
 
-    (48) parametros -> inicializacionFor END comparacion END VARIABLE . increDecre
-    (53) increDecre -> . INCREMENTO
-    (54) increDecre -> . DECREMENTO
+    (11) asignacion -> tipo VARIABLE IGUAL . expresiones END
+    (24) input -> tipo VARIABLE IGUAL . INPUT PIZQ PDER END
+    (14) expresiones -> . expresion
+    (15) expresiones -> . comparacion
+    (16) expresiones -> . BOOLEAN
+    (17) expresiones -> . opstring
+    (18) expresiones -> . indexacion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (20) opstring -> . string
+    (21) opstring -> . VARIABLE
+    (22) opstring -> . string MAS opstring
+    (79) indexacion -> . VARIABLE CIZQ valor CDER
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+    (19) string -> . STRING
 
-    INCREMENTO      shift and go to state 110
-    DECREMENTO      shift and go to state 111
+    INPUT           shift and go to state 128
+    BOOLEAN         shift and go to state 106
+    VARIABLE        shift and go to state 110
+    ENTERO          shift and go to state 40
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+    STRING          shift and go to state 111
 
-    increDecre                     shift and go to state 109
+    expresiones                    shift and go to state 127
+    expresion                      shift and go to state 104
+    comparacion                    shift and go to state 105
+    opstring                       shift and go to state 107
+    indexacion                     shift and go to state 108
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+    string                         shift and go to state 109
 
 state 102
 
-    (55) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER . END
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor . COMA LDER
 
-    END             shift and go to state 112
+    COMA            shift and go to state 129
 
 
 state 103
 
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion . PDER END
+    (23) imprimir -> PRINT PIZQ expresiones . PDER END
 
-    PDER            shift and go to state 113
+    PDER            shift and go to state 130
 
 
 state 104
 
-    (42) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf . END
+    (14) expresiones -> expresion .
+    (43) comparacion -> expresion . operadorComp expresion
+    (49) operadorComp -> . MAYOR
+    (50) operadorComp -> . MENOR
+    (51) operadorComp -> . MAYORIG
+    (52) operadorComp -> . MENORIG
+    (53) operadorComp -> . DIGUAL
+    (54) operadorComp -> . DIF
 
-    END             shift and go to state 114
+    PDER            reduce using rule 14 (expresiones -> expresion .)
+    END             reduce using rule 14 (expresiones -> expresion .)
+    MAYOR           shift and go to state 65
+    MENOR           shift and go to state 66
+    MAYORIG         shift and go to state 67
+    MENORIG         shift and go to state 68
+    DIGUAL          shift and go to state 69
+    DIF             shift and go to state 70
 
+    operadorComp                   shift and go to state 64
 
 state 105
 
-    (43) varianteIf -> ELSEIF . PIZQ comparacion PDER LIZQ algoritmo LDER
-    (45) varianteIf -> ELSEIF . PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+    (15) expresiones -> comparacion .
 
-    PIZQ            shift and go to state 115
+    PDER            reduce using rule 15 (expresiones -> comparacion .)
+    END             reduce using rule 15 (expresiones -> comparacion .)
 
 
 state 106
 
-    (44) varianteIf -> ELSE . LIZQ algoritmo LDER
+    (16) expresiones -> BOOLEAN .
 
-    LIZQ            shift and go to state 116
+    PDER            reduce using rule 16 (expresiones -> BOOLEAN .)
+    END             reduce using rule 16 (expresiones -> BOOLEAN .)
 
 
 state 107
 
-    (46) varianteIf -> empty .
+    (17) expresiones -> opstring .
 
-    END             reduce using rule 46 (varianteIf -> empty .)
+    PDER            reduce using rule 17 (expresiones -> opstring .)
+    END             reduce using rule 17 (expresiones -> opstring .)
 
 
 state 108
 
-    (47) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .
+    (18) expresiones -> indexacion .
 
-    $end            reduce using rule 47 (sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .)
-    LDER            reduce using rule 47 (sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .)
+    PDER            reduce using rule 18 (expresiones -> indexacion .)
+    END             reduce using rule 18 (expresiones -> indexacion .)
 
 
 state 109
 
-    (48) parametros -> inicializacionFor END comparacion END VARIABLE increDecre .
+    (20) opstring -> string .
+    (22) opstring -> string . MAS opstring
 
-    PDER            reduce using rule 48 (parametros -> inicializacionFor END comparacion END VARIABLE increDecre .)
+    PDER            reduce using rule 20 (opstring -> string .)
+    END             reduce using rule 20 (opstring -> string .)
+    MAS             shift and go to state 131
 
 
 state 110
 
-    (53) increDecre -> INCREMENTO .
+    (21) opstring -> VARIABLE .
+    (79) indexacion -> VARIABLE . CIZQ valor CDER
+    (63) valor -> VARIABLE .
+    (34) first -> VARIABLE . POINT FIRST PIZQ PDER
+    (35) last -> VARIABLE . POINT LAST PIZQ PDER END
+    (36) length -> VARIABLE . POINT LEN PIZQ PDER END
+    (38) remove -> VARIABLE . POINT REMOVE PIZQ valor PDER END
+    (37) add -> VARIABLE . POINT ADD PIZQ valor PDER END
 
-    PDER            reduce using rule 53 (increDecre -> INCREMENTO .)
+  ! reduce/reduce conflict for PDER resolved using rule 21 (opstring -> VARIABLE .)
+  ! reduce/reduce conflict for END resolved using rule 21 (opstring -> VARIABLE .)
+    PDER            reduce using rule 21 (opstring -> VARIABLE .)
+    END             reduce using rule 21 (opstring -> VARIABLE .)
+    CIZQ            shift and go to state 132
+    MAS             reduce using rule 63 (valor -> VARIABLE .)
+    RESTA           reduce using rule 63 (valor -> VARIABLE .)
+    PROD            reduce using rule 63 (valor -> VARIABLE .)
+    DIV             reduce using rule 63 (valor -> VARIABLE .)
+    MOD             reduce using rule 63 (valor -> VARIABLE .)
+    MAYOR           reduce using rule 63 (valor -> VARIABLE .)
+    MENOR           reduce using rule 63 (valor -> VARIABLE .)
+    MAYORIG         reduce using rule 63 (valor -> VARIABLE .)
+    MENORIG         reduce using rule 63 (valor -> VARIABLE .)
+    DIGUAL          reduce using rule 63 (valor -> VARIABLE .)
+    DIF             reduce using rule 63 (valor -> VARIABLE .)
+    POINT           shift and go to state 63
+
+  ! PDER            [ reduce using rule 63 (valor -> VARIABLE .) ]
+  ! END             [ reduce using rule 63 (valor -> VARIABLE .) ]
 
 
 state 111
 
-    (54) increDecre -> DECREMENTO .
+    (19) string -> STRING .
 
-    PDER            reduce using rule 54 (increDecre -> DECREMENTO .)
+    MAS             reduce using rule 19 (string -> STRING .)
+    PDER            reduce using rule 19 (string -> STRING .)
+    END             reduce using rule 19 (string -> STRING .)
 
 
 state 112
 
-    (55) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .
+    (64) sentenciaIf -> IF PIZQ comparacion . PDER LIZQ algoritmo LDER varianteIf END
 
-    $end            reduce using rule 55 (sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .)
-    LDER            reduce using rule 55 (sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .)
+    PDER            shift and go to state 133
 
 
 state 113
 
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER . END
+    (69) sentenciaFOR -> FOR PIZQ parametros . PDER LIZQ algoritmo LDER END
 
-    END             shift and go to state 117
+    PDER            shift and go to state 134
 
 
 state 114
 
-    (42) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .
+    (77) sentenciaWhile -> WHILE PIZQ comparacion . PDER LIZQ algoritmo LDER END
 
-    $end            reduce using rule 42 (sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .)
-    LDER            reduce using rule 42 (sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .)
+    PDER            shift and go to state 135
 
 
 state 115
 
-    (43) varianteIf -> ELSEIF PIZQ . comparacion PDER LIZQ algoritmo LDER
-    (45) varianteIf -> ELSEIF PIZQ . comparacion PDER LIZQ algoritmo LDER varianteIf
-    (22) comparacion -> . expresion operadorComp expresion
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (78) sentenciaWhile -> DO LIZQ algoritmo . LDER WHILE PIZQ comparacion PDER END
 
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    LDER            shift and go to state 136
 
-    comparacion                    shift and go to state 118
-    expresion                      shift and go to state 56
-    valor                          shift and go to state 13
 
 state 116
 
-    (44) varianteIf -> ELSE LIZQ . algoritmo LDER
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (70) parametros -> inicializacionFor END comparacion END VARIABLE increDecre .
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    PDER            reduce using rule 70 (parametros -> inicializacionFor END comparacion END VARIABLE increDecre .)
 
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    algoritmo                      shift and go to state 119
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    comparacion                    shift and go to state 5
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
 
 state 117
 
-    (56) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .
+    (75) increDecre -> INCREMENTO .
 
-    $end            reduce using rule 56 (sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .)
-    LDER            reduce using rule 56 (sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .)
+    PDER            reduce using rule 75 (increDecre -> INCREMENTO .)
 
 
 state 118
 
-    (43) varianteIf -> ELSEIF PIZQ comparacion . PDER LIZQ algoritmo LDER
-    (45) varianteIf -> ELSEIF PIZQ comparacion . PDER LIZQ algoritmo LDER varianteIf
+    (76) increDecre -> DECREMENTO .
 
-    PDER            shift and go to state 120
+    PDER            reduce using rule 76 (increDecre -> DECREMENTO .)
 
 
 state 119
 
-    (44) varianteIf -> ELSE LIZQ algoritmo . LDER
+    (34) first -> VARIABLE POINT FIRST PIZQ . PDER
 
-    LDER            shift and go to state 121
+    PDER            shift and go to state 137
 
 
 state 120
 
-    (43) varianteIf -> ELSEIF PIZQ comparacion PDER . LIZQ algoritmo LDER
-    (45) varianteIf -> ELSEIF PIZQ comparacion PDER . LIZQ algoritmo LDER varianteIf
+    (35) last -> VARIABLE POINT LAST PIZQ . PDER END
 
-    LIZQ            shift and go to state 122
+    PDER            shift and go to state 138
 
 
 state 121
 
-    (44) varianteIf -> ELSE LIZQ algoritmo LDER .
+    (36) length -> VARIABLE POINT LEN PIZQ . PDER END
 
-    END             reduce using rule 44 (varianteIf -> ELSE LIZQ algoritmo LDER .)
+    PDER            shift and go to state 139
 
 
 state 122
 
-    (43) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ . algoritmo LDER
-    (45) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ . algoritmo LDER varianteIf
-    (1) algoritmo -> . imprimir
-    (2) algoritmo -> . asignacion
-    (3) algoritmo -> . expresion
-    (4) algoritmo -> . comparacion
-    (5) algoritmo -> . sentenciaIf
-    (6) algoritmo -> . sentenciaFOR
-    (7) algoritmo -> . sentenciaWhile
-    (8) algoritmo -> . empty
-    (19) imprimir -> . PRINT PIZQ expresiones PDER END
-    (9) asignacion -> . tipo VARIABLE IGUAL expresiones END
-    (20) expresion -> . valor
-    (21) expresion -> . valor operadorMat expresion
-    (22) comparacion -> . expresion operadorComp expresion
-    (42) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
-    (47) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
-    (55) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
-    (56) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
-    (58) empty -> .
-    (34) tipo -> . VAR
-    (35) tipo -> . INT
-    (36) tipo -> . BOOL
-    (37) tipo -> . DOUBLE
-    (38) tipo -> . empty
-    (39) tipo -> . VOID
-    (40) valor -> . ENTERO
-    (41) valor -> . VARIABLE
+    (38) remove -> VARIABLE POINT REMOVE PIZQ . valor PDER END
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
 
-  ! shift/reduce conflict for VARIABLE resolved as shift
-    PRINT           shift and go to state 10
-    IF              shift and go to state 14
-    FOR             shift and go to state 15
-    WHILE           shift and go to state 16
-    DO              shift and go to state 17
-    LDER            reduce using rule 58 (empty -> .)
-    VAR             shift and go to state 18
-    INT             shift and go to state 19
-    BOOL            shift and go to state 20
-    DOUBLE          shift and go to state 21
-    VOID            shift and go to state 22
-    ENTERO          shift and go to state 23
-    VARIABLE        shift and go to state 12
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
 
-  ! VARIABLE        [ reduce using rule 58 (empty -> .) ]
-
-    comparacion                    shift and go to state 5
-    algoritmo                      shift and go to state 123
-    imprimir                       shift and go to state 2
-    asignacion                     shift and go to state 3
-    expresion                      shift and go to state 4
-    sentenciaIf                    shift and go to state 6
-    sentenciaFOR                   shift and go to state 7
-    sentenciaWhile                 shift and go to state 8
-    empty                          shift and go to state 9
-    tipo                           shift and go to state 11
-    valor                          shift and go to state 13
+    valor                          shift and go to state 140
 
 state 123
 
-    (43) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo . LDER
-    (45) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo . LDER varianteIf
+    (37) add -> VARIABLE POINT ADD PIZQ . valor PDER END
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
 
-    LDER            shift and go to state 124
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
 
+    valor                          shift and go to state 141
 
 state 124
 
-    (43) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .
-    (45) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER . varianteIf
-    (43) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
-    (44) varianteIf -> . ELSE LIZQ algoritmo LDER
-    (45) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
-    (46) varianteIf -> . empty
-    (58) empty -> .
+    (33) lista -> CIZQ elementos CDER END .
 
-  ! reduce/reduce conflict for END resolved using rule 43 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .)
-    END             reduce using rule 43 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .)
-    ELSEIF          shift and go to state 105
-    ELSE            shift and go to state 106
+    MAYOR           reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    MENOR           reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    MAYORIG         reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    MENORIG         reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    DIGUAL          reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    DIF             reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    RETURN          reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    END             reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    PDER            reduce using rule 33 (lista -> CIZQ elementos CDER END .)
+    LDER            reduce using rule 33 (lista -> CIZQ elementos CDER END .)
 
-  ! END             [ reduce using rule 58 (empty -> .) ]
-
-    varianteIf                     shift and go to state 125
-    empty                          shift and go to state 107
 
 state 125
 
-    (45) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf .
+    (41) elementos -> valor COMA elementos .
 
-    END             reduce using rule 45 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf .)
+    CDER            reduce using rule 41 (elementos -> valor COMA elementos .)
+    LDER            reduce using rule 41 (elementos -> valor COMA elementos .)
+
+
+state 126
+
+    (39) conjuntos -> LIZQ elementos LDER END .
+
+    MAYOR           reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    MENOR           reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    MAYORIG         reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    MENORIG         reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    DIGUAL          reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    DIF             reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    RETURN          reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    END             reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    PDER            reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+    LDER            reduce using rule 39 (conjuntos -> LIZQ elementos LDER END .)
+
+
+state 127
+
+    (11) asignacion -> tipo VARIABLE IGUAL expresiones . END
+
+    END             shift and go to state 142
+
+
+state 128
+
+    (24) input -> tipo VARIABLE IGUAL INPUT . PIZQ PDER END
+
+    PIZQ            shift and go to state 143
+
+
+state 129
+
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA . LDER
+
+    LDER            shift and go to state 144
+
+
+state 130
+
+    (23) imprimir -> PRINT PIZQ expresiones PDER . END
+
+    END             shift and go to state 145
+
+
+state 131
+
+    (22) opstring -> string MAS . opstring
+    (20) opstring -> . string
+    (21) opstring -> . VARIABLE
+    (22) opstring -> . string MAS opstring
+    (19) string -> . STRING
+
+    VARIABLE        shift and go to state 147
+    STRING          shift and go to state 111
+
+    string                         shift and go to state 109
+    opstring                       shift and go to state 146
+
+state 132
+
+    (79) indexacion -> VARIABLE CIZQ . valor CDER
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 79
+
+    valor                          shift and go to state 148
+
+state 133
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER . LIZQ algoritmo LDER varianteIf END
+
+    LIZQ            shift and go to state 149
+
+
+state 134
+
+    (69) sentenciaFOR -> FOR PIZQ parametros PDER . LIZQ algoritmo LDER END
+
+    LIZQ            shift and go to state 150
+
+
+state 135
+
+    (77) sentenciaWhile -> WHILE PIZQ comparacion PDER . LIZQ algoritmo LDER END
+
+    LIZQ            shift and go to state 151
+
+
+state 136
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER . WHILE PIZQ comparacion PDER END
+
+    WHILE           shift and go to state 152
+
+
+state 137
+
+    (34) first -> VARIABLE POINT FIRST PIZQ PDER .
+
+    MAYOR           reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    MENOR           reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    MAYORIG         reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    MENORIG         reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    DIGUAL          reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    DIF             reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    RETURN          reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    END             reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    PDER            reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+    LDER            reduce using rule 34 (first -> VARIABLE POINT FIRST PIZQ PDER .)
+
+
+state 138
+
+    (35) last -> VARIABLE POINT LAST PIZQ PDER . END
+
+    END             shift and go to state 153
+
+
+state 139
+
+    (36) length -> VARIABLE POINT LEN PIZQ PDER . END
+
+    END             shift and go to state 154
+
+
+state 140
+
+    (38) remove -> VARIABLE POINT REMOVE PIZQ valor . PDER END
+
+    PDER            shift and go to state 155
+
+
+state 141
+
+    (37) add -> VARIABLE POINT ADD PIZQ valor . PDER END
+
+    PDER            shift and go to state 156
+
+
+state 142
+
+    (11) asignacion -> tipo VARIABLE IGUAL expresiones END .
+
+    RETURN          reduce using rule 11 (asignacion -> tipo VARIABLE IGUAL expresiones END .)
+    LDER            reduce using rule 11 (asignacion -> tipo VARIABLE IGUAL expresiones END .)
+
+
+state 143
+
+    (24) input -> tipo VARIABLE IGUAL INPUT PIZQ . PDER END
+
+    PDER            shift and go to state 157
+
+
+state 144
+
+    (1) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER .
+
+    $end            reduce using rule 1 (funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER .)
+
+
+state 145
+
+    (23) imprimir -> PRINT PIZQ expresiones PDER END .
+
+    RETURN          reduce using rule 23 (imprimir -> PRINT PIZQ expresiones PDER END .)
+    LDER            reduce using rule 23 (imprimir -> PRINT PIZQ expresiones PDER END .)
+
+
+state 146
+
+    (22) opstring -> string MAS opstring .
+
+    PDER            reduce using rule 22 (opstring -> string MAS opstring .)
+    END             reduce using rule 22 (opstring -> string MAS opstring .)
+
+
+state 147
+
+    (21) opstring -> VARIABLE .
+
+    PDER            reduce using rule 21 (opstring -> VARIABLE .)
+    END             reduce using rule 21 (opstring -> VARIABLE .)
+
+
+state 148
+
+    (79) indexacion -> VARIABLE CIZQ valor . CDER
+
+    CDER            shift and go to state 158
+
+
+state 149
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER LIZQ . algoritmo LDER varianteIf END
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    comparacion                    shift and go to state 51
+    algoritmo                      shift and go to state 159
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 150
+
+    (69) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ . algoritmo LDER END
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    algoritmo                      shift and go to state 160
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    comparacion                    shift and go to state 51
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 151
+
+    (77) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ . algoritmo LDER END
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    comparacion                    shift and go to state 51
+    algoritmo                      shift and go to state 161
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 152
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE . PIZQ comparacion PDER END
+
+    PIZQ            shift and go to state 162
+
+
+state 153
+
+    (35) last -> VARIABLE POINT LAST PIZQ PDER END .
+
+    MAYOR           reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    MENOR           reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    MAYORIG         reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    MENORIG         reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    DIGUAL          reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    DIF             reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    RETURN          reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    END             reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    PDER            reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+    LDER            reduce using rule 35 (last -> VARIABLE POINT LAST PIZQ PDER END .)
+
+
+state 154
+
+    (36) length -> VARIABLE POINT LEN PIZQ PDER END .
+
+    MAYOR           reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    MENOR           reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    MAYORIG         reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    MENORIG         reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    DIGUAL          reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    DIF             reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    RETURN          reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    END             reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    PDER            reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+    LDER            reduce using rule 36 (length -> VARIABLE POINT LEN PIZQ PDER END .)
+
+
+state 155
+
+    (38) remove -> VARIABLE POINT REMOVE PIZQ valor PDER . END
+
+    END             shift and go to state 163
+
+
+state 156
+
+    (37) add -> VARIABLE POINT ADD PIZQ valor PDER . END
+
+    END             shift and go to state 164
+
+
+state 157
+
+    (24) input -> tipo VARIABLE IGUAL INPUT PIZQ PDER . END
+
+    END             shift and go to state 165
+
+
+state 158
+
+    (79) indexacion -> VARIABLE CIZQ valor CDER .
+
+    PDER            reduce using rule 79 (indexacion -> VARIABLE CIZQ valor CDER .)
+    END             reduce using rule 79 (indexacion -> VARIABLE CIZQ valor CDER .)
+
+
+state 159
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo . LDER varianteIf END
+
+    LDER            shift and go to state 166
+
+
+state 160
+
+    (69) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo . LDER END
+
+    LDER            shift and go to state 167
+
+
+state 161
+
+    (77) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo . LDER END
+
+    LDER            shift and go to state 168
+
+
+state 162
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ . comparacion PDER END
+    (43) comparacion -> . expresion operadorComp expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    comparacion                    shift and go to state 169
+    expresion                      shift and go to state 31
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 163
+
+    (38) remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .
+
+    MAYOR           reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    MENOR           reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    MAYORIG         reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    MENORIG         reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    DIGUAL          reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    DIF             reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    RETURN          reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    END             reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    PDER            reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+    LDER            reduce using rule 38 (remove -> VARIABLE POINT REMOVE PIZQ valor PDER END .)
+
+
+state 164
+
+    (37) add -> VARIABLE POINT ADD PIZQ valor PDER END .
+
+    MAYOR           reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    MENOR           reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    MAYORIG         reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    MENORIG         reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    DIGUAL          reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    DIF             reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    RETURN          reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    END             reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    PDER            reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+    LDER            reduce using rule 37 (add -> VARIABLE POINT ADD PIZQ valor PDER END .)
+
+
+state 165
+
+    (24) input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END .
+
+    RETURN          reduce using rule 24 (input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END .)
+    LDER            reduce using rule 24 (input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END .)
+
+
+state 166
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER . varianteIf END
+    (65) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
+    (66) varianteIf -> . ELSE LIZQ algoritmo LDER
+    (67) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+    (68) varianteIf -> . empty
+    (80) empty -> .
+
+    ELSEIF          shift and go to state 171
+    ELSE            shift and go to state 172
+    END             reduce using rule 80 (empty -> .)
+
+    varianteIf                     shift and go to state 170
+    empty                          shift and go to state 173
+
+state 167
+
+    (69) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER . END
+
+    END             shift and go to state 174
+
+
+state 168
+
+    (77) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER . END
+
+    END             shift and go to state 175
+
+
+state 169
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion . PDER END
+
+    PDER            shift and go to state 176
+
+
+state 170
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf . END
+
+    END             shift and go to state 177
+
+
+state 171
+
+    (65) varianteIf -> ELSEIF . PIZQ comparacion PDER LIZQ algoritmo LDER
+    (67) varianteIf -> ELSEIF . PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+
+    PIZQ            shift and go to state 178
+
+
+state 172
+
+    (66) varianteIf -> ELSE . LIZQ algoritmo LDER
+
+    LIZQ            shift and go to state 179
+
+
+state 173
+
+    (68) varianteIf -> empty .
+
+    END             reduce using rule 68 (varianteIf -> empty .)
+
+
+state 174
+
+    (69) sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .
+
+    RETURN          reduce using rule 69 (sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .)
+    LDER            reduce using rule 69 (sentenciaFOR -> FOR PIZQ parametros PDER LIZQ algoritmo LDER END .)
+
+
+state 175
+
+    (77) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .
+
+    RETURN          reduce using rule 77 (sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .)
+    LDER            reduce using rule 77 (sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END .)
+
+
+state 176
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER . END
+
+    END             shift and go to state 180
+
+
+state 177
+
+    (64) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .
+
+    RETURN          reduce using rule 64 (sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .)
+    LDER            reduce using rule 64 (sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END .)
+
+
+state 178
+
+    (65) varianteIf -> ELSEIF PIZQ . comparacion PDER LIZQ algoritmo LDER
+    (67) varianteIf -> ELSEIF PIZQ . comparacion PDER LIZQ algoritmo LDER varianteIf
+    (43) comparacion -> . expresion operadorComp expresion
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+    comparacion                    shift and go to state 181
+    expresion                      shift and go to state 31
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 179
+
+    (66) varianteIf -> ELSE LIZQ . algoritmo LDER
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    algoritmo                      shift and go to state 182
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    comparacion                    shift and go to state 51
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 180
+
+    (78) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .
+
+    RETURN          reduce using rule 78 (sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .)
+    LDER            reduce using rule 78 (sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END .)
+
+
+state 181
+
+    (65) varianteIf -> ELSEIF PIZQ comparacion . PDER LIZQ algoritmo LDER
+    (67) varianteIf -> ELSEIF PIZQ comparacion . PDER LIZQ algoritmo LDER varianteIf
+
+    PDER            shift and go to state 183
+
+
+state 182
+
+    (66) varianteIf -> ELSE LIZQ algoritmo . LDER
+
+    LDER            shift and go to state 184
+
+
+state 183
+
+    (65) varianteIf -> ELSEIF PIZQ comparacion PDER . LIZQ algoritmo LDER
+    (67) varianteIf -> ELSEIF PIZQ comparacion PDER . LIZQ algoritmo LDER varianteIf
+
+    LIZQ            shift and go to state 185
+
+
+state 184
+
+    (66) varianteIf -> ELSE LIZQ algoritmo LDER .
+
+    END             reduce using rule 66 (varianteIf -> ELSE LIZQ algoritmo LDER .)
+
+
+state 185
+
+    (65) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ . algoritmo LDER
+    (67) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ . algoritmo LDER varianteIf
+    (2) algoritmo -> . imprimir
+    (3) algoritmo -> . asignacion
+    (4) algoritmo -> . expresion
+    (5) algoritmo -> . comparacion
+    (6) algoritmo -> . sentenciaIf
+    (7) algoritmo -> . sentenciaFOR
+    (8) algoritmo -> . sentenciaWhile
+    (9) algoritmo -> . empty
+    (10) algoritmo -> . input
+    (23) imprimir -> . PRINT PIZQ expresiones PDER END
+    (11) asignacion -> . tipo VARIABLE IGUAL expresiones END
+    (25) expresion -> . valor
+    (26) expresion -> . lista
+    (27) expresion -> . conjuntos
+    (28) expresion -> . first
+    (29) expresion -> . last
+    (30) expresion -> . length
+    (31) expresion -> . remove
+    (32) expresion -> . add
+    (42) expresion -> . valor operadorMat expresion
+    (43) comparacion -> . expresion operadorComp expresion
+    (64) sentenciaIf -> . IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END
+    (69) sentenciaFOR -> . FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    (77) sentenciaWhile -> . WHILE PIZQ comparacion PDER LIZQ algoritmo LDER END
+    (78) sentenciaWhile -> . DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+    (80) empty -> .
+    (24) input -> . tipo VARIABLE IGUAL INPUT PIZQ PDER END
+    (55) tipo -> . VAR
+    (56) tipo -> . INT
+    (57) tipo -> . BOOL
+    (58) tipo -> . DOUBLE
+    (59) tipo -> . empty
+    (60) tipo -> . VOID
+    (61) tipo -> . STR
+    (62) valor -> . ENTERO
+    (63) valor -> . VARIABLE
+    (33) lista -> . CIZQ elementos CDER END
+    (39) conjuntos -> . LIZQ elementos LDER END
+    (34) first -> . VARIABLE POINT FIRST PIZQ PDER
+    (35) last -> . VARIABLE POINT LAST PIZQ PDER END
+    (36) length -> . VARIABLE POINT LEN PIZQ PDER END
+    (38) remove -> . VARIABLE POINT REMOVE PIZQ valor PDER END
+    (37) add -> . VARIABLE POINT ADD PIZQ valor PDER END
+
+  ! shift/reduce conflict for VARIABLE resolved as shift
+    PRINT           shift and go to state 57
+    IF              shift and go to state 58
+    FOR             shift and go to state 59
+    WHILE           shift and go to state 60
+    DO              shift and go to state 61
+    LDER            reduce using rule 80 (empty -> .)
+    VAR             shift and go to state 3
+    INT             shift and go to state 4
+    BOOL            shift and go to state 5
+    DOUBLE          shift and go to state 6
+    VOID            shift and go to state 8
+    STR             shift and go to state 9
+    ENTERO          shift and go to state 40
+    VARIABLE        shift and go to state 30
+    CIZQ            shift and go to state 41
+    LIZQ            shift and go to state 42
+
+  ! VARIABLE        [ reduce using rule 80 (empty -> .) ]
+
+    comparacion                    shift and go to state 51
+    algoritmo                      shift and go to state 186
+    imprimir                       shift and go to state 48
+    asignacion                     shift and go to state 49
+    expresion                      shift and go to state 50
+    sentenciaIf                    shift and go to state 52
+    sentenciaFOR                   shift and go to state 53
+    sentenciaWhile                 shift and go to state 54
+    empty                          shift and go to state 55
+    input                          shift and go to state 56
+    tipo                           shift and go to state 46
+    valor                          shift and go to state 32
+    lista                          shift and go to state 33
+    conjuntos                      shift and go to state 34
+    first                          shift and go to state 35
+    last                           shift and go to state 36
+    length                         shift and go to state 37
+    remove                         shift and go to state 38
+    add                            shift and go to state 39
+
+state 186
+
+    (65) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo . LDER
+    (67) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo . LDER varianteIf
+
+    LDER            shift and go to state 187
+
+
+state 187
+
+    (65) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .
+    (67) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER . varianteIf
+    (65) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
+    (66) varianteIf -> . ELSE LIZQ algoritmo LDER
+    (67) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+    (68) varianteIf -> . empty
+    (80) empty -> .
+
+  ! reduce/reduce conflict for END resolved using rule 65 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .)
+    END             reduce using rule 65 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER .)
+    ELSEIF          shift and go to state 171
+    ELSE            shift and go to state 172
+
+  ! END             [ reduce using rule 80 (empty -> .) ]
+
+    varianteIf                     shift and go to state 188
+    empty                          shift and go to state 173
+
+state 188
+
+    (67) varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf .
+
+    END             reduce using rule 67 (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for VARIABLE in state 0 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 42 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 82 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 83 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 11 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 16 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 17 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 25 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 28 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 87 resolved as shift
 WARNING: shift/reduce conflict for VARIABLE in state 89 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 116 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 122 resolved as shift
-WARNING: reduce/reduce conflict in state 51 resolved using rule (opstring -> VARIABLE)
-WARNING: rejected rule (valor -> VARIABLE) in state 51
-WARNING: reduce/reduce conflict in state 124 resolved using rule (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER)
-WARNING: rejected rule (empty -> <empty>) in state 124
+WARNING: shift/reduce conflict for VARIABLE in state 149 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 150 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 151 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 179 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 185 resolved as shift
+WARNING: reduce/reduce conflict in state 110 resolved using rule (opstring -> VARIABLE)
+WARNING: rejected rule (valor -> VARIABLE) in state 110
+WARNING: reduce/reduce conflict in state 187 resolved using rule (varianteIf -> ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER)
+WARNING: rejected rule (empty -> <empty>) in state 187

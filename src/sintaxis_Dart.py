@@ -5,7 +5,9 @@ import ply.yacc as yacc
  # Get the token map from the lexer.  This is required.
 from lex_Dart import tokens
 
-
+def p_funciones(p):
+    '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
+    '''
 
 def p_algoritmo(p): #regla padre, necesaria para llegar a todas 
     '''algoritmo : imprimir
@@ -16,6 +18,7 @@ def p_algoritmo(p): #regla padre, necesaria para llegar a todas
                     | sentenciaFOR
                     | sentenciaWhile
                     | empty
+                    | input
     '''
 
 
@@ -23,6 +26,10 @@ def p_asignacion(p):
     'asignacion : tipo VARIABLE IGUAL expresiones END'
 
 
+def p_parametros(p):
+    '''parametros : tipo VARIABLE
+                  | tipo VARIABLE COMA  parametros
+    '''
 ##posibles asignaciones
 def p_expresiones(p): #posible error, poner String
     '''expresiones : expresion
@@ -45,8 +52,51 @@ def p_operacion_strings(p):
 def p_imprimir(p):
     'imprimir : PRINT PIZQ expresiones PDER END'
 
+
+def p_input(p):
+    'input : tipo VARIABLE IGUAL INPUT PIZQ PDER END'
+
 def p_expresion(p):
     '''expresion : valor
+                 | lista
+                 | conjuntos
+                 | first
+                 | last
+                 | length
+                 | remove
+                 | add
+    '''
+
+def p_lista(p):
+    '''lista : CIZQ elementos CDER END
+    '''
+
+def p_first(p):
+    '''first : VARIABLE POINT FIRST PIZQ PDER
+    '''
+
+def p_last(p):
+    '''last : VARIABLE POINT LAST PIZQ PDER END
+    '''
+
+def p_length(p):
+    '''length : VARIABLE POINT LEN PIZQ PDER END
+    '''
+
+def p_add(p):
+    '''add : VARIABLE POINT ADD PIZQ valor PDER END
+    '''
+
+def p_remove(p):
+    '''remove : VARIABLE POINT REMOVE PIZQ valor PDER END
+    '''
+def p_conjuntos(p):
+    '''conjuntos : LIZQ elementos LDER END
+    '''
+
+def p_elementos(p):
+    '''elementos : valor
+                 | valor COMA elementos
     '''
 
 def p_expresion_aritmetica(p):
@@ -81,12 +131,14 @@ def p_tipo(p):
             | DOUBLE
             | empty
             | VOID
+            | STR
     '''
 
 def p_valor(p):
     '''valor : ENTERO
              | VARIABLE
     '''
+
 ##### estructura if
 def p_sentenciaIf(p):
     'sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf END'

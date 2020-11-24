@@ -33,3 +33,8 @@ int factorial(int numero) {
   return factorial(n - 1);
 }
 print("hola mundo");
+
+if(a>b){var a=30;}else if(a>32){var b=30;}else{var a =20;};
+for (x in person) { var text = 32;};
+for (i = 0; i < 5; i++) {var a =23;};
+

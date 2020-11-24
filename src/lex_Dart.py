@@ -8,6 +8,7 @@ reserved = {
     "else": "ELSE" ,
     "for":"FOR",#parte IsaacSolis
     "while":"WHILE",
+    "do":"DO",
     "bool":"BOOL",
     "int":"INT",
     "double":"DOUBLE",

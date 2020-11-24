@@ -74,7 +74,7 @@ def p_lista(p):
     '''
 
 def p_first(p):
-    '''first : VARIABLE POINT FIRST PIZQ
+    '''first : VARIABLE POINT FIRST PIZQ PDER
     '''
 
 def p_last(p):

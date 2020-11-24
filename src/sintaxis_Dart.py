@@ -5,26 +5,28 @@ import ply.yacc as yacc
  # Get the token map from the lexer.  This is required.
 from lex_Dart import tokens
 
-def p_funciones(p):
-    '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor COMA LDER
-    '''
+
 
 def p_algoritmo(p): #regla padre, necesaria para llegar a todas 
     '''algoritmo : imprimir
                     | asignacion 
-                    | expresion 
-                    | comparacion
+                    | expresion END
+                    | comparacion END
                     | sentenciaIf 
                     | sentenciaFOR
                     | sentenciaWhile
-                    | empty
                     | input
+                    | funciones
+    '''
+def p_funciones(p):
+    '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor END LDER
+                | VOID VARIABLE PIZQ parametros PDER LIZQ algoritmo   LDER
     '''
 
-
 def p_asignacion(p):
-    'asignacion : tipo VARIABLE IGUAL expresiones END'
-
+    '''asignacion : tipo VARIABLE IGUAL expresiones END
+                    | VARIABLE IGUAL expresiones END
+    '''
 
 def p_parametros(p):
     '''parametros : tipo VARIABLE
@@ -32,11 +34,18 @@ def p_parametros(p):
     '''
 ##posibles asignaciones
 def p_expresiones(p): #posible error, poner String
-    '''expresiones : expresion
-                    | comparacion
-                    | BOOLEAN
-                    | opstring
-                    | indexacion
+    '''expresiones : expresion 
+                    | comparacion 
+                    | BOOLEAN 
+                    | opstring 
+                    | indexacion 
+                    | lista
+                    | conjuntos
+                    | first
+                    | last
+                    | length
+                    | remove
+                    | add
     '''
 
 def p_strings(p):
@@ -50,7 +59,7 @@ def p_operacion_strings(p):
     '''
 
 def p_imprimir(p):
-    'imprimir : PRINT PIZQ expresiones PDER END'
+    'imprimir : PRINT PIZQ opstring PDER END'
 
 
 def p_input(p):
@@ -58,40 +67,33 @@ def p_input(p):
 
 def p_expresion(p):
     '''expresion : valor
-                 | lista
-                 | conjuntos
-                 | first
-                 | last
-                 | length
-                 | remove
-                 | add
     '''
 
 def p_lista(p):
-    '''lista : CIZQ elementos CDER END
+    '''lista : CIZQ elementos CDER
     '''
 
 def p_first(p):
-    '''first : VARIABLE POINT FIRST PIZQ PDER
+    '''first : VARIABLE POINT FIRST PIZQ
     '''
 
 def p_last(p):
-    '''last : VARIABLE POINT LAST PIZQ PDER END
+    '''last : VARIABLE POINT LAST PIZQ PDER
     '''
 
 def p_length(p):
-    '''length : VARIABLE POINT LEN PIZQ PDER END
+    '''length : VARIABLE POINT LEN PIZQ PDER
     '''
 
 def p_add(p):
-    '''add : VARIABLE POINT ADD PIZQ valor PDER END
+    '''add : VARIABLE POINT ADD PIZQ valor PDER
     '''
 
 def p_remove(p):
-    '''remove : VARIABLE POINT REMOVE PIZQ valor PDER END
+    '''remove : VARIABLE POINT REMOVE PIZQ valor PDER
     '''
 def p_conjuntos(p):
-    '''conjuntos : LIZQ elementos LDER END
+    '''conjuntos : LIZQ elementos LDER
     '''
 
 def p_elementos(p):
@@ -129,7 +131,6 @@ def p_tipo(p):
             | INT
             | BOOL
             | DOUBLE
-            | empty
             | VOID
             | STR
     '''
@@ -153,11 +154,11 @@ def p_sentenciaelseif(p):
 ##### estructura for, for in
 
 def p_setenciaFor(p):
-    '''sentenciaFOR : FOR PIZQ parametros PDER LIZQ algoritmo LDER END
+    '''sentenciaFOR : FOR PIZQ parametrosF PDER LIZQ algoritmo LDER END
     '''
 
 def p_contenidoFor(p):
-    '''parametros : inicializacionFor END  comparacion END VARIABLE increDecre
+    '''parametrosF : inicializacionFor END  comparacion END VARIABLE increDecre
                     | VARIABLE IN VARIABLE
     '''
 def p_iniializacionFor(p):

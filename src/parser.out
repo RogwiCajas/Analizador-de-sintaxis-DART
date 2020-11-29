@@ -1,4 +1,4 @@
-Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
@@ -2338,6 +2338,18 @@ state 149
 
     END             reduce using rule 90 (inicializacionFor -> VARIABLE IGUAL ENTERO .)
 
+    algoritmo                      shift and go to state 163
+    imprimir                       shift and go to state 2
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciaIf                    shift and go to state 6
+    sentenciaFOR                   shift and go to state 7
+    sentenciaWhile                 shift and go to state 8
+    input                          shift and go to state 9
+    funciones                      shift and go to state 10
+    tipo                           shift and go to state 12
+    valor                          shift and go to state 14
 
 state 150
 
@@ -2481,7 +2493,7 @@ state 153
     tipo                           shift and go to state 13
     valor                          shift and go to state 15
 
-state 154
+state 155
 
     (97) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE . PIZQ comparacion PDER END
     (98) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE . PIZQ opLogicas PDER END
@@ -2489,21 +2501,21 @@ state 154
     PIZQ            shift and go to state 176
 
 
-state 155
+state 156
 
     (13) funciones -> VOID VARIABLE PIZQ parametros PDER . LIZQ codigo LDER
 
     LIZQ            shift and go to state 177
 
 
-state 156
+state 157
 
     (38) input -> tipo VARIABLE IGUAL INPUT PIZQ PDER . END
 
     END             shift and go to state 178
 
 
-state 157
+state 158
 
     (18) parametros -> tipo VARIABLE COMA . parametros
     (16) parametros -> . empty
@@ -2529,7 +2541,7 @@ state 157
     parametros                     shift and go to state 179
     empty                          shift and go to state 100
 
-state 158
+state 159
 
     (12) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ . codigo RETURN expresion END LDER
     (1) codigo -> . algoritmo
@@ -2596,35 +2608,35 @@ state 158
     funciones                      shift and go to state 11
     valor                          shift and go to state 15
 
-state 159
+state 160
 
     (99) indexacion -> VARIABLE CIZQ valor CDER .
 
     END             reduce using rule 99 (indexacion -> VARIABLE CIZQ valor CDER .)
 
 
-state 160
+state 161
 
     (41) first -> VARIABLE POINT FIRST PIZQ . PDER
 
     PDER            shift and go to state 181
 
 
-state 161
+state 162
 
     (42) last -> VARIABLE POINT LAST PIZQ . PDER
 
     PDER            shift and go to state 182
 
 
-state 162
+state 163
 
     (43) length -> VARIABLE POINT LEN PIZQ . PDER
 
     PDER            shift and go to state 183
 
 
-state 163
+state 164
 
     (45) remove -> VARIABLE POINT REMOVE PIZQ . valor PDER
     (76) valor -> . ENTERO
@@ -2635,7 +2647,7 @@ state 163
 
     valor                          shift and go to state 184
 
-state 164
+state 165
 
     (44) add -> VARIABLE POINT ADD PIZQ . valor PDER
     (76) valor -> . ENTERO
@@ -2646,7 +2658,7 @@ state 164
 
     valor                          shift and go to state 185
 
-state 165
+state 166
 
     (48) elementos -> valor COMA elementos .
 
@@ -2654,7 +2666,7 @@ state 165
     LDER            reduce using rule 48 (elementos -> valor COMA elementos .)
 
 
-state 166
+state 167
 
     (51) opLogicas -> terminoLogico operadorLog terminoLogico operadorLog . opLogicas
     (49) opLogicas -> . terminoLogico
@@ -2671,70 +2683,70 @@ state 166
     terminoLogico                  shift and go to state 77
     opLogicas                      shift and go to state 186
 
-state 167
+state 168
 
     (78) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo . LDER varianteIf
 
     LDER            shift and go to state 187
 
 
-state 168
+state 169
 
     (79) sentenciaIf -> IF PIZQ opLogicas PDER LIZQ algoritmo . LDER varianteIf
 
     LDER            shift and go to state 188
 
 
-state 169
+state 170
 
     (86) sentenciaFOR -> FOR PIZQ parametrosF PDER LIZQ algoritmo . LDER
 
     LDER            shift and go to state 189
 
 
-state 170
+state 171
 
     (87) parametrosF -> inicializacionFor END comparacion END . VARIABLE increDecre
 
     VARIABLE        shift and go to state 190
 
 
-state 171
+state 172
 
     (88) parametrosF -> inicializacionFor END opLogicas END . VARIABLE increDecre
 
     VARIABLE        shift and go to state 191
 
 
-state 172
+state 173
 
     (91) inicializacionFor -> INT VARIABLE IGUAL ENTERO .
 
     END             reduce using rule 91 (inicializacionFor -> INT VARIABLE IGUAL ENTERO .)
 
 
-state 173
+state 174
 
     (92) inicializacionFor -> VAR VARIABLE IGUAL ENTERO .
 
     END             reduce using rule 92 (inicializacionFor -> VAR VARIABLE IGUAL ENTERO .)
 
 
-state 174
+state 175
 
     (95) sentenciaWhile -> WHILE PIZQ comparacion PDER LIZQ algoritmo . LDER
 
     LDER            shift and go to state 192
 
 
-state 175
+state 176
 
     (96) sentenciaWhile -> WHILE PIZQ opLogicas PDER LIZQ algoritmo . LDER
 
     LDER            shift and go to state 193
 
 
-state 176
+state 177
 
     (97) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ . comparacion PDER END
     (98) sentenciaWhile -> DO LIZQ algoritmo LDER WHILE PIZQ . opLogicas PDER END
@@ -2761,7 +2773,7 @@ state 176
     terminoLogico                  shift and go to state 77
     valor                          shift and go to state 15
 
-state 177
+state 178
 
     (13) funciones -> VOID VARIABLE PIZQ parametros PDER LIZQ . codigo LDER
     (1) codigo -> . algoritmo
@@ -2828,7 +2840,7 @@ state 177
     tipo                           shift and go to state 13
     valor                          shift and go to state 15
 
-state 178
+state 179
 
     (38) input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END .
 
@@ -2850,56 +2862,56 @@ state 178
     LDER            reduce using rule 38 (input -> tipo VARIABLE IGUAL INPUT PIZQ PDER END .)
 
 
-state 179
+state 180
 
     (18) parametros -> tipo VARIABLE COMA parametros .
 
     PDER            reduce using rule 18 (parametros -> tipo VARIABLE COMA parametros .)
 
 
-state 180
+state 181
 
     (12) funciones -> tipo VARIABLE PIZQ parametros PDER LIZQ codigo . RETURN expresion END LDER
 
     RETURN          shift and go to state 197
 
 
-state 181
+state 182
 
     (41) first -> VARIABLE POINT FIRST PIZQ PDER .
 
     END             reduce using rule 41 (first -> VARIABLE POINT FIRST PIZQ PDER .)
 
 
-state 182
+state 183
 
     (42) last -> VARIABLE POINT LAST PIZQ PDER .
 
     END             reduce using rule 42 (last -> VARIABLE POINT LAST PIZQ PDER .)
 
 
-state 183
+state 184
 
     (43) length -> VARIABLE POINT LEN PIZQ PDER .
 
     END             reduce using rule 43 (length -> VARIABLE POINT LEN PIZQ PDER .)
 
 
-state 184
+state 185
 
     (45) remove -> VARIABLE POINT REMOVE PIZQ valor . PDER
 
     PDER            shift and go to state 198
 
 
-state 185
+state 186
 
     (44) add -> VARIABLE POINT ADD PIZQ valor . PDER
 
     PDER            shift and go to state 199
 
 
-state 186
+state 187
 
     (51) opLogicas -> terminoLogico operadorLog terminoLogico operadorLog opLogicas .
 
@@ -2907,7 +2919,7 @@ state 186
     PDER            reduce using rule 51 (opLogicas -> terminoLogico operadorLog terminoLogico operadorLog opLogicas .)
 
 
-state 187
+state 188
 
     (78) sentenciaIf -> IF PIZQ comparacion PDER LIZQ algoritmo LDER . varianteIf
     (80) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
@@ -2940,7 +2952,7 @@ state 187
     varianteIf                     shift and go to state 200
     empty                          shift and go to state 203
 
-state 188
+state 189
 
     (79) sentenciaIf -> IF PIZQ opLogicas PDER LIZQ algoritmo LDER . varianteIf
     (80) varianteIf -> . ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
@@ -2973,7 +2985,7 @@ state 188
     varianteIf                     shift and go to state 204
     empty                          shift and go to state 203
 
-state 189
+state 190
 
     (86) sentenciaFOR -> FOR PIZQ parametrosF PDER LIZQ algoritmo LDER .
 
@@ -2995,7 +3007,7 @@ state 189
     LDER            reduce using rule 86 (sentenciaFOR -> FOR PIZQ parametrosF PDER LIZQ algoritmo LDER .)
 
 
-state 190
+state 191
 
     (87) parametrosF -> inicializacionFor END comparacion END VARIABLE . increDecre
     (93) increDecre -> . INCREMENTO
@@ -3006,7 +3018,7 @@ state 190
 
     increDecre                     shift and go to state 205
 
-state 191
+state 192
 
     (88) parametrosF -> inicializacionFor END opLogicas END VARIABLE . increDecre
     (93) increDecre -> . INCREMENTO

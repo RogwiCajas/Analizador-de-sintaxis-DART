@@ -17,8 +17,7 @@ reserved = {
     "void":"VOID",
     "return": "RETURN",
     "in":"IN", #parte IsaacSolis
-    "continue":"CONTINUE",
-    "break": "BREAK",
+    
     "print": "PRINT", #funciones
     "stdin.readLineSync" : "INPUT",
     "add" : "ADD",

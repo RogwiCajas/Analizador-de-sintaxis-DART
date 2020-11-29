@@ -23,8 +23,8 @@ def p_algoritmo(p): #regla padre, necesaria para llegar a todas
                     | funciones
     '''
 def p_funciones(p):
-    '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ algoritmo RETURN valor END LDER
-                | VOID VARIABLE PIZQ parametros PDER LIZQ algoritmo   LDER
+    '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ codigo RETURN expresion END LDER
+                | VOID VARIABLE PIZQ parametros PDER LIZQ codigo   LDER
     '''
 
 def p_asignacion(p): #Rogwi Cajas
@@ -33,7 +33,8 @@ def p_asignacion(p): #Rogwi Cajas
     '''
 
 def p_parametros(p):
-    '''parametros : tipo VARIABLE
+    '''parametros : empty 
+                  | tipo VARIABLE
                   | tipo VARIABLE COMA  parametros
     '''
 ##posibles asignaciones #Rogwi Cajas e isaac solis
@@ -50,6 +51,7 @@ def p_expresiones(p): #p, poner String
                     | length
                     | remove
                     | add
+                    | opLogicas
     '''
 
 def p_strings(p):
@@ -60,6 +62,7 @@ def p_operacion_strings(p): #Rogwi Cajas
     '''opstring : string 
                 | VARIABLE
                 | string MAS opstring
+                | VARIABLE MAS opstring
     '''
 
 def p_imprimir(p):
@@ -104,6 +107,17 @@ def p_elementos(p):
     '''elementos : valor
                  | valor COMA elementos
     '''
+def p_operaciones_logicas(p):
+    '''opLogicas :    terminoLogico
+                    | terminoLogico operadorLog terminoLogico
+                    | terminoLogico operadorLog terminoLogico operadorLog opLogicas
+    '''
+def p_termino_logico(p):
+    ''' terminoLogico : VARIABLE
+                        | BOOLEAN
+                        | PIZQ comparacion PDER
+    '''
+
 
 def p_expresion_aritmetica(p):
     'expresion : valor operadorMat expresion'
@@ -112,7 +126,10 @@ def p_expresion_aritmetica(p):
 def p_comparacion(p):
     'comparacion : expresion operadorComp expresion'
 
-
+def p_operadorLog(p):
+    '''operadorLog : AND
+                    | OR
+    '''
 def p_operadorMat(p): #Rogwi Cajas
     '''operadorMat : MAS 
                     | RESTA
@@ -146,13 +163,17 @@ def p_valor(p):
 
 ##### estructura if Rogwi Cajas
 def p_sentenciaIf(p):
-    'sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf'
+    '''sentenciaIf : IF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+                    | IF PIZQ opLogicas PDER LIZQ algoritmo LDER varianteIf
+    '''
 
 
 def p_sentenciaelseif(p):
     '''varianteIf : ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER
+                    | ELSEIF PIZQ opLogicas PDER LIZQ algoritmo LDER
                     | ELSE LIZQ algoritmo LDER
                     | ELSEIF PIZQ comparacion PDER LIZQ algoritmo LDER varianteIf
+                    | ELSEIF PIZQ opLogicas PDER LIZQ algoritmo LDER varianteIf
                     | empty
     '''
 ##### estructura for, for in Rogwi Cajas
@@ -163,6 +184,7 @@ def p_setenciaFor(p):
 
 def p_contenidoFor(p):
     '''parametrosF : inicializacionFor END  comparacion END VARIABLE increDecre
+                    | inicializacionFor END  opLogicas END VARIABLE increDecre
                     | VARIABLE IN VARIABLE
     '''
 def p_iniializacionFor(p):
@@ -178,10 +200,12 @@ def p_increDecre(p):
 
 def p_sentenciaWhile(p):
     '''sentenciaWhile : WHILE PIZQ comparacion PDER LIZQ algoritmo LDER
+                        | WHILE PIZQ opLogicas PDER LIZQ algoritmo LDER
     '''
 
 def p_sentenciaWhile_do(p):
     '''sentenciaWhile : DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
+                        | DO LIZQ algoritmo LDER WHILE PIZQ opLogicas PDER END
     '''
 # indexacion
 def p_indexacion(p):

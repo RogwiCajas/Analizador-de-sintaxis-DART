@@ -1,8 +1,11 @@
+/*comentario*/
+var string = "variable"+"sas12"+string2;
+print("aasdasd"+ab+"string22");
 var a = 3+4/23;
 while(a!=0){
     if(a>50){
        for(var i =0; i>=a; i--){
-           print("valor"); 
+           print("valor"+"asas"); 
         }
     }else if(a>25){
        a=20;
@@ -10,3 +13,28 @@ while(a!=0){
         print("valor muy bajo");
     }
 }
+String a= "assad";
+listanumero = [1,2,3,4,5,6];
+int conjuntonumero = {2,4,6,8};
+int inicial = listanumero.first();
+int final = listanumero.last();
+int total = varaible.length();
+bool final = listanumero.add(12);
+bool final = listanumero.remove(12);
+int nombrefuncion(int entrada1, int entrada3){
+    print(salida); 
+    return final;
+}
+void nombrefuncion(int entrada1, int entrada3){
+    print(salida); 
+}
+String nombrefuncion(){
+    void nombrefuncion(int entrada1, int entrada3){
+        print("interna"); 
+    }
+    print(salida);
+    print("externa");
+    return a; 
+}
+var a =(a>b)&&(b>a);
+var a =a&&(b>a);

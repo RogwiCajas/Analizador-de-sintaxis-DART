@@ -125,6 +125,16 @@ def t_error(t):
 
 lexer = lex.lex()
 
+def analizarLexico(data):
+    lexer.input(data)
+    # Tokenize
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        print(tok)
+
+
 #comentado va a qui
 
 

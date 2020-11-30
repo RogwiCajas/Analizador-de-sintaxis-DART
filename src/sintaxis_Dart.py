@@ -223,6 +223,12 @@ def p_error(p):
 
 # Build the parser
 parser = yacc.yacc()
+
+def analizarSintactico(s):
+    print(s)
+    result = parser.parse(s)
+    print(result)
+
 '''
 while True:
     try:
@@ -233,10 +239,11 @@ while True:
     result = parser.parse(s)
     print(result)
 '''
-
-f=open("codigoCajas.txt")
+''''
+f=open("../codigoCajas.txt")
 s = f.read()
 print(s)
 result = parser.parse(s)
 print(result)
 f.close()    
+'''

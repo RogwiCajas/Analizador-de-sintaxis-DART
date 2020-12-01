@@ -127,14 +127,16 @@ lexer = lex.lex()
 
 def analizarLexico(data):
     lexer.input(data)
+    resultados = ""
     # Tokenize
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
         print(tok)
-
-
+        resultado = str(tok) + "\n"
+        resultados= resultados + resultado
+    return resultados
 #comentado va a qui
 
 

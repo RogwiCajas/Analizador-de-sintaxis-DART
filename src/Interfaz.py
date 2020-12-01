@@ -7,7 +7,8 @@ class Ventana:
     # Le pasamos el componente raíz al constructor
     def __init__(self, root):
         # Establecemos el tamaño de la raíz
-        root.geometry("800x300")
+        root.geometry("800x600")
+
         # Añadimos titulo
 
         self.titulo = tk.Label(root, text="Analizador Léxico y Sintáctico de Dart.")
@@ -41,24 +42,42 @@ class Ventana:
                                  bg="blue",  # Background
                                  font=("Verdana", 16))
 
-        self.buttonLimpiar = tk.Button(root, text="Limpiar", command=self.limpiar)
+        self.buttonLimpiar = tk.Button(root, text="Limpiar", command=self.limpiar, )
         self.buttonLimpiar.place(x=100, y=200)
         self.buttonLimpiar.config(fg="black",  # Foreground
-                                     bg="white",  # Background
-                                     font=("Verdana", 16))
-    # Definimos la función como un método de clase
+                                  bg="white",  # Background
+                                  font=("Verdana", 16))
+
+
+
+
+        self.resultado = tk.Label(root,text= "Resultados",justify=tk.LEFT )
+        self.resultado.place(x=10, y=250)
+        self.resultado.config(fg="blue",
+                              bg="white",
+                              font=("Verdana", 15)
+                              )
+
+
+
+        # Definimos la función como un método de clase
     def analizarLexco(self):
         print("Se realizara un analizador léxico!")
         entrada= self.txt.get()
-        analizarLexico(entrada)
+        resultados = analizarLexico(entrada)
+        self.resultado['text'] = resultados
+
 
     def analizarSintactico(self):
         print("Se realizara un analizador sintáctico!")
         entrada = self.txt.get()
-        analizarSintactico(entrada)
+        resultados= analizarSintactico(entrada)
+        self.resultado['text'] = resultados
 
     def limpiar(self):
         self.txt.delete(first=0, last=10000)
+        self.resultado['text'] ="Resultados del Analizador"
+
 
 
 # Creamos la aplicación, la ventana e iniciamos el bucle

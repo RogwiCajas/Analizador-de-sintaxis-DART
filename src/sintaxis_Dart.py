@@ -226,8 +226,9 @@ parser = yacc.yacc()
 
 def analizarSintactico(s):
     print(s)
-    result = parser.parse(s)
+    result = str(parser.parse(s))
     print(result)
+    return result
 
 '''
 while True:

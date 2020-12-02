@@ -5,7 +5,7 @@ var a = 3+4/23;
 while(a&&(a>c)){
     if(a>50){
        for(var i =0; i>=a; i--){
-           print("valor"+"asas"); 
+           print("valor"+"asas");
         }
     }else if(a>25){
        a=20;
@@ -22,19 +22,19 @@ int total = varaible.length();
 bool final = listanumero.add(12);
 bool final = listanumero.remove(12);
 int nombrefuncion(int entrada1, int entrada3){
-    print(salida); 
+    print(salida);
     return final;
 }
 void nombrefuncion(int entrada1, int entrada3){
-    print(salida); 
+    print(salida);
 }
 String nombrefuncion(){
     void nombrefuncion(int entrada1, int entrada3){
-        print("interna"); 
+        print("interna");
     }
     print(salida);
     print("externa");
-    return a; 
+    return a;
 }
 var a =(a>b)&&(b>a);
 var a =a&&(b>a);

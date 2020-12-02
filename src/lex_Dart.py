@@ -19,7 +19,7 @@ reserved = {
     "in":"IN", #parte IsaacSolis
     
     "print": "PRINT", #funciones
-    "stdin.readLineSync" : "INPUT",
+    "Stdin.readLineSync" : "INPUT",
     "add" : "ADD",
     "length" :"LEN",
     "remove" :"REMOVE",
@@ -139,4 +139,10 @@ def analizarLexico(data):
     return resultados
 #comentado va a qui
 
+archivo = open('../codigoCajas.txt')
+for linea in archivo:
+    #print(">>"+linea)
+    analizarLexico(linea)
+    if len(linea)==0:
+        break
 

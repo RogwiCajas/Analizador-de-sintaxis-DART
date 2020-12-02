@@ -21,6 +21,7 @@ def p_algoritmo(p): #regla padre, necesaria para llegar a todas
                     | sentenciaWhile
                     | input
                     | funciones
+                    | expresionSinRetorno
     '''
 def p_funciones(p):
     '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ codigo RETURN expresion END LDER
@@ -32,18 +33,37 @@ def p_asignacion(p): #Rogwi Cajas
                     | VARIABLE IGUAL expresiones END
     '''
 
+
+
+def p_expresionSinRetorno(p): #Isaac Solis
+    '''expresionSinRetorno : funcionStructura END
+                           | funcionStructura
+    '''
+
+def p_funcionStructura(p): #funciones de listas y conjuntos
+    '''funcionStructura : first
+                        | last
+                        | length
+                        | remove
+                        | add
+    '''
+
 def p_parametros(p):
     '''parametros : empty 
                   | tipo VARIABLE
                   | tipo VARIABLE COMA  parametros
     '''
 ##posibles asignaciones #Rogwi Cajas e isaac solis
+def p_strings(p):
+    '''string : STRING
+    '''
+
 def p_expresiones(p): #p, poner String
-    '''expresiones : expresion 
-                    | comparacion 
-                    | BOOLEAN 
-                    | opstring 
-                    | indexacion 
+    '''expresiones : expresion
+                    | comparacion
+                    | BOOLEAN
+                    | opstring
+                    | indexacion
                     | lista
                     | conjuntos
                     | first
@@ -51,11 +71,8 @@ def p_expresiones(p): #p, poner String
                     | length
                     | remove
                     | add
+                    | slice
                     | opLogicas
-    '''
-
-def p_strings(p):
-    '''string : STRING
     '''
 
 def p_operacion_strings(p): #Rogwi Cajas
@@ -95,6 +112,11 @@ def p_length(p):
 def p_add(p):
     '''add : VARIABLE POINT ADD PIZQ valor PDER
     '''
+
+def p_slice(p):
+    '''slice : VARIABLE POINT SLICE PIZQ valor COMA valor PDER
+    '''
+
 
 def p_remove(p):
     '''remove : VARIABLE POINT REMOVE PIZQ valor PDER
@@ -240,11 +262,12 @@ while True:
     result = parser.parse(s)
     print(result)
 '''
-''''
-f=open("../codigoCajas.txt")
+
+
+f=open("../codigoSolis.txt")
 s = f.read()
 print(s)
 result = parser.parse(s)
 print(result)
 f.close()    
-'''
+

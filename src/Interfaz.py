@@ -65,7 +65,10 @@ class Ventana:
         print("Se realizara un analizador léxico!")
         entrada= self.txt.get()
         resultados = analizarLexico(entrada)
-        self.resultado['text'] = resultados
+        if resultados=="" :
+            self.resultado['text'] = "Error, no se reconocio ningun token"
+        else:
+            self.resultado['text'] = resultados
 
 
     def analizarSintactico(self):

@@ -1,4 +1,5 @@
 import ply.lex as lex
+reglas=[]
 
 
 ##Palabras reservadas de dart
@@ -63,6 +64,7 @@ tokens = [  #parte RogwiCajas
     "COMA",
     "ELSEIF",
     "POINT",
+    "COMENTARIO"
     
 ] + list(reserved.values())
 #fin de parte de RogwiCajas
@@ -85,6 +87,7 @@ t_MAYORIG = r">="
 t_MENORIG = r"<="
 t_ENTERO = r"\d+"
 t_DIV=r"/"
+t_COMENTARIO=r"//"
 t_RESTA=r"-"  #fin de parte de ISaacSOlis
 t_CIZQ=r"\[" #parte RogwiCajas
 t_CDER=r"\]"
@@ -116,16 +119,22 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 # iGNORA CARACTERES
 t_ignore = ' \t'
-t_ignore_CM = r'//.*'
-t_ignore_CM2 = r'/\*.*\*/'
+
 
 def t_error(t):
     print("No es reconocido '%s'" % t.value[0])
+    if t is not None:
+        reglas.append("Error, no se encontro el token '%s'" % t.value[0])
+    else:
+        print("Syntax Error!!")
+        reglas.append("Syntax Error")  # añade el error a el arreglo
     t.lexer.skip(1)
+
 
 lexer = lex.lex()
 
 def analizarLexico(data):
+    reglas.clear()#limpio los errores de analisis pasados
     lexer.input(data)
     resultados = ""
     # Tokenize
@@ -133,10 +142,9 @@ def analizarLexico(data):
         tok = lexer.token()
         if not tok:
             break  # No more input
-        print(tok)
         resultado = str(tok) + "\n"
         resultados= resultados + resultado
-    return resultados
+    return resultados,reglas
 #comentado va a qui
 '''
 archivo = open('./codigoCajas.txt')

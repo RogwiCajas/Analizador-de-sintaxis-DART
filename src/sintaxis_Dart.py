@@ -10,6 +10,7 @@ reglas=[]
 def p_codigo(p): #Rogwi Cajas
     '''codigo : algoritmo
                 | algoritmo codigo
+                | comnetario
 
     '''
     
@@ -233,6 +234,11 @@ def p_sentenciaWhile(p):
                         | WHILE PIZQ opLogicas PDER LIZQ algoritmo LDER
     '''
 
+def p_comentario(p):
+    '''comnetario : COMENTARIO VARIABLE
+    '''
+
+
 def p_sentenciaWhile_do(p):
     '''sentenciaWhile : DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END
                         | DO LIZQ algoritmo LDER WHILE PIZQ opLogicas PDER END
@@ -250,7 +256,7 @@ def p_empty(p):
 # Error rule for syntax errors
 def p_error(p):
     if p is not None:
-        reglas.append("Syntax Error: \n '%s' \n, l= %s c= %s"%(p.value,p.lineano,p.lexpos))
+        reglas.append("Syntax Error")
 
     else:
         print("Syntax Error!!")

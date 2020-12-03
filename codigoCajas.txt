@@ -1,4 +1,4 @@
-/*comentario*/
+//comentario
 var string = "variable"+"sas12"+string2;
 print("aasdasd"+ab+"string22");
 var a = 3+4/23;

@@ -4,9 +4,6 @@ from lex_Dart import analizarLexico
 
 
 class Ventana:
-    def NuevaVentana(self, nuevaventana):
-        nuevaventana.geometry("800x600")
-
 
     # Le pasamos el componente raíz al constructor
     def __init__(self, root):

@@ -4,10 +4,14 @@ from lex_Dart import analizarLexico
 
 
 class Ventana:
+    def NuevaVentana(self, nuevaventana):
+        nuevaventana.geometry("800x600")
+
+
     # Le pasamos el componente raíz al constructor
     def __init__(self, root):
         # Establecemos el tamaño de la raíz
-        root.geometry("800x600")
+        root.geometry("800x400")
 
         # Añadimos titulo
 
@@ -51,35 +55,55 @@ class Ventana:
 
 
 
-        self.resultado = tk.Label(root,text= "Resultados",justify=tk.LEFT )
-        self.resultado.place(x=10, y=250)
-        self.resultado.config(fg="blue",
-                              bg="white",
-                              font=("Verdana", 15)
-                              )
-
-
-
         # Definimos la función como un método de clase
     def analizarLexco(self):
-        print("Se realizara un analizador léxico!")
         entrada= self.txt.get()
         resultados = analizarLexico(entrada)
         if resultados=="" :
-            self.resultado['text'] = "Error, no se reconocio ningun token"
+            NueVentana("Error, no se reconocio ningun token")
+
         else:
-            self.resultado['text'] = resultados
+            NueVentana(resultados)
 
 
     def analizarSintactico(self):
         print("Se realizara un analizador sintáctico!")
         entrada = self.txt.get()
         resultados,error= analizarSintactico(entrada)
-        self.resultado['text'] = resultados + str(error)
+        NueVentana(resultados + str(error))
 
     def limpiar(self):
         self.txt.delete(first=0, last=10000)
-        self.resultado['text'] ="Resultados del Analizador"
+
+def NueVentana(resultados):
+    toplevel = tk.Toplevel(width = 100)
+    container = tk.Frame(toplevel)
+    canvas = tk.Canvas(container)
+    scrollbar = tk.Scrollbar(container, orient="vertical", command=canvas.yview)
+    scrollable_frame = tk.Frame(canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")
+        )
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+
+    canvas.configure(yscrollcommand=scrollbar.set)
+    labelresult = tk.Label(scrollable_frame, text=resultados, justify=tk.LEFT)
+    labelresult.pack()
+    labelresult.config(fg="blue",
+                       bg="white",
+                       font=("Verdana", 12)
+                       )
+
+
+    container.pack()
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
 
 
 

@@ -4,12 +4,15 @@ import ply.yacc as yacc
  
  # Get the token map from the lexer.  This is required.
 from lex_Dart import tokens
+#flag
+reglas=[]
 
 def p_codigo(p): #Rogwi Cajas
     '''codigo : algoritmo
                 | algoritmo codigo
 
     '''
+    
 
 def p_algoritmo(p): #regla padre, necesaria para llegar a todas 
     '''algoritmo : imprimir
@@ -23,22 +26,25 @@ def p_algoritmo(p): #regla padre, necesaria para llegar a todas
                     | funciones
                     | expresionSinRetorno
     '''
+    
 def p_funciones(p):
     '''funciones : tipo VARIABLE PIZQ parametros PDER LIZQ codigo RETURN expresion END LDER
                 | VOID VARIABLE PIZQ parametros PDER LIZQ codigo   LDER
     '''
+    
 
 def p_asignacion(p): #Rogwi Cajas
     '''asignacion : tipo VARIABLE IGUAL expresiones END
                     | VARIABLE IGUAL expresiones END
     '''
-
+    
 
 
 def p_expresionSinRetorno(p): #Isaac Solis
     '''expresionSinRetorno : funcionStructura END
                            | funcionStructura
     '''
+    
 
 def p_funcionStructura(p): #funciones de listas y conjuntos
     '''funcionStructura : first
@@ -47,16 +53,18 @@ def p_funcionStructura(p): #funciones de listas y conjuntos
                         | remove
                         | add
     '''
-
+    
 def p_parametros(p):
     '''parametros : empty 
                   | tipo VARIABLE
                   | tipo VARIABLE COMA  parametros
     '''
+    
 ##posibles asignaciones #Rogwi Cajas e isaac solis
 def p_strings(p):
     '''string : STRING
     '''
+    
 
 def p_expresiones(p): #p, poner String
     '''expresiones : expresion
@@ -241,33 +249,30 @@ def p_empty(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    if p is not None:
+        reglas.append("Syntax Error: \n '%s' \n, l= %s c= %s"%(p.value,p.lineano,p.lexpos))
+
+    else:
+        print("Syntax Error!!")
+        reglas.append("Syntax Error")#añade el error a el arreglo
+
 
 # Build the parser
 parser = yacc.yacc()
 
 def analizarSintactico(s):
+    reglas.clear()#limpio los errores de analisis pasados
     print(s)
     result = str(parser.parse(s))
     print(result)
-    return result
+    
+    return result,reglas
 
 '''
-while True:
-    try:
-        s = input('calc > ')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
-    print(result)
-'''
-
-
-f=open("../codigoSolis.txt")
+f=open("codigoCajas.txt")
 s = f.read()
 print(s)
 result = parser.parse(s)
 print(result)
-f.close()    
+f.close() '''   
 

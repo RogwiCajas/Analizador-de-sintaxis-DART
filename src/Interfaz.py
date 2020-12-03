@@ -71,8 +71,8 @@ class Ventana:
     def analizarSintactico(self):
         print("Se realizara un analizador sintáctico!")
         entrada = self.txt.get()
-        resultados= analizarSintactico(entrada)
-        self.resultado['text'] = resultados
+        resultados,error= analizarSintactico(entrada)
+        self.resultado['text'] = resultados + str(error)
 
     def limpiar(self):
         self.txt.delete(first=0, last=10000)

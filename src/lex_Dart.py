@@ -139,7 +139,7 @@ def analizarLexico(data):
     return resultados
 #comentado va a qui
 
-archivo = open('../codigoCajas.txt')
+archivo = open('./codigoCajas.txt')
 for linea in archivo:
     #print(">>"+linea)
     analizarLexico(linea)

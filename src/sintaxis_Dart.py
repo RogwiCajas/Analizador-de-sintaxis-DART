@@ -10,7 +10,6 @@ reglas=[]
 def p_codigo(p): #Rogwi Cajas
     '''codigo : algoritmo
                 | algoritmo codigo
-                | comnetario
 
     '''
     
@@ -233,11 +232,6 @@ def p_sentenciaWhile(p):
     '''sentenciaWhile : WHILE PIZQ comparacion PDER LIZQ algoritmo LDER
                         | WHILE PIZQ opLogicas PDER LIZQ algoritmo LDER
     '''
-
-def p_comentario(p):
-    '''comnetario : COMENTARIO VARIABLE
-    '''
-
 
 def p_sentenciaWhile_do(p):
     '''sentenciaWhile : DO LIZQ algoritmo LDER WHILE PIZQ comparacion PDER END

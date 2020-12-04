@@ -119,7 +119,8 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 # iGNORA CARACTERES
 t_ignore = ' \t'
-
+t_ignore_CM = r'//.*'
+t_ignore_CM2 = r'/\*.*\*/'
 
 def t_error(t):
     print("No es reconocido '%s'" % t.value[0])
